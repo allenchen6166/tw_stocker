@@ -229,21 +229,21 @@ def build_liquid_universe(close_df, vol_df, top_n=50, lookback=20):
     return universe_mask
 
 
-def fetch_dynamic_top_tickers(top_n=50, days=30, verbose=True):
+def fetch_dynamic_top_tickers(top_n=50, days=5, verbose=True):
     """
-    用 FinMind 抓全市場股票清單，依近期成交額動態選出 Top-N 檔。
+    用 FinMind 單日全市場成交資料（1 個請求）快速選出成交額 Top-N 檔。
 
     流程：
-    1. 抓上市(TWSE) + 上櫃(TPEX) 全部股票代號
-    2. 各別抓近 days 天成交資料
-    3. 計算平均日成交額，取 Top-N
+    1. 抓最近交易日全市場所有股票的成交資料（1 個 API 請求）
+    2. 計算成交額 = 收盤價 × 成交量
+    3. 排序取 Top-N，過濾掉非普通股（ETF、特別股等）
 
     Parameters
     ----------
     top_n : int
         要選出幾檔（預設 50）
     days : int
-        計算成交額的回溯天數（預設 30）
+        往前找最近幾天的交易日（預設 5，確保能抓到最近交易日）
 
     Returns
     -------
@@ -254,67 +254,45 @@ def fetch_dynamic_top_tickers(top_n=50, days=30, verbose=True):
         print("⚠️ FinMind 未安裝，使用預設股池")
         return None
 
-    from concurrent.futures import ThreadPoolExecutor, as_completed
+    if verbose:
+        print(f"🔍 動態篩選：單日全市場成交額 Top-{top_n}（1 個請求）...")
 
     end_dt = pd.Timestamp(datetime.today())
-    start_dt = end_dt - timedelta(days=days + 10)
+    start_dt = end_dt - timedelta(days=days + 3)
     start_str = start_dt.strftime('%Y-%m-%d')
     end_str = end_dt.strftime('%Y-%m-%d')
 
-    if verbose:
-        print(f"🔍 動態篩選：抓取全市場股票清單...")
-
-    # 取得上市股票清單
     try:
-        stock_info = _fm.taiwan_stock_info()
-        # 只取普通股（排除 ETF、特別股、憑證等）
-        normal = stock_info[
-            stock_info['type'].isin(['twse', 'otc']) &
-            stock_info['stock_id'].str.match(r'^\d{4}$')
-        ]
-        all_tickers = normal['stock_id'].tolist()
+        # 一次抓所有股票的近幾日成交資料
+        df = _fm.taiwan_stock_daily(start_date=start_str, end_date=end_str)
+        if df is None or df.empty:
+            print("   ⚠️ FinMind 無資料，使用預設股池")
+            return None
+
+        # 只保留最近一個交易日
+        latest_date = df['date'].max()
+        df_latest = df[df['date'] == latest_date].copy()
+
+        # 只取 4 碼普通股（排除 ETF、特別股等）
+        df_latest = df_latest[df_latest['stock_id'].str.match(r'^[0-9]{4}$')]
+
+        # 計算成交額
+        df_latest['turnover'] = df_latest['close'] * df_latest['Trading_Volume']
+        df_latest = df_latest[df_latest['turnover'] > 0]
+
+        # 取 Top-N
+        top_df = df_latest.sort_values('turnover', ascending=False).head(top_n)
+        top_tickers = top_df['stock_id'].tolist()
+
         if verbose:
-            print(f"   📋 全市場共 {len(all_tickers)} 檔普通股")
-    except Exception as e:
-        print(f"   ⚠️ 無法取得股票清單: {e}，使用預設股池")
-        return None
-
-    # 批次抓近期成交額
-    def _fetch_vol(ticker):
-        try:
-            df = _fm.taiwan_stock_daily(
-                stock_id=ticker, start_date=start_str, end_date=end_str)
-            if df is None or df.empty:
-                return ticker, 0.0
-            avg_turnover = (df['close'] * df['Trading_Volume']).mean()
-            return ticker, float(avg_turnover) if pd.notna(avg_turnover) else 0.0
-        except Exception:
-            return ticker, 0.0
-
-    if verbose:
-        print(f"   📊 計算 {len(all_tickers)} 檔近 {days} 日平均成交額...")
-
-    scores = {}
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        futures = {executor.submit(_fetch_vol, t): t for t in all_tickers}
-        done = 0
-        for future in as_completed(futures):
-            ticker, score = future.result()
-            scores[ticker] = score
-            done += 1
-            if verbose and done % 100 == 0:
-                print(f"   📦 已處理 {done}/{len(all_tickers)} 檔...")
-
-    # 取 Top-N
-    sorted_tickers = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    top_tickers = [t for t, _ in sorted_tickers[:top_n] if _ > 0]
-
-    if verbose:
-        print(f"   ✅ 動態篩選完成，選出成交額 Top-{len(top_tickers)} 檔")
-        if top_tickers:
+            print(f"   ✅ 最近交易日：{latest_date}，選出 {len(top_tickers)} 檔")
             print(f"   📌 前 10 名：{top_tickers[:10]}")
 
-    return top_tickers
+        return top_tickers
+
+    except Exception as e:
+        print(f"   ⚠️ 動態篩選失敗: {e}，使用預設股池")
+        return None
 
 
 def engineer_features(close_df, vol_df, universe_mask=None,
@@ -627,5 +605,6 @@ def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
 
     print(f"   ✅ ML 因子加權完成 (模型訓練 {(len(dates) - train_window) // retrain_interval} 次)")
     return total_score
+
 
 
