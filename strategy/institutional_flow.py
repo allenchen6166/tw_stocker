@@ -159,6 +159,57 @@ def build_inst_flow_df(tickers, close_df, verbose=True):
     return inst_flow_df, inst_ratio_df
 
 
+def build_inst_score_from_rankings(tickers, close_df, window=20, verbose=True):
+    """
+    用排名 JSON（兩個請求）快速建立法人買超評分矩陣。
+    比逐檔抓時序快 100 倍，適合每日自動排程使用。
+
+    買超名單中的股票給正分，賣超給負分，其餘為 0。
+    分數以 change 幅度為準（變化越大分數越高/低）。
+
+    Parameters
+    ----------
+    tickers : list[str]
+    close_df : pd.DataFrame
+        用於對齊日期索引
+    window : int
+        排名視窗天數 (5, 20, 60, 120)
+
+    Returns
+    -------
+    inst_flow_df : pd.DataFrame
+        (date × ticker) 法人買超分數矩陣，最新一列有值，其餘填 0
+    """
+    if verbose:
+        print(f"🏛️ 抓取三大法人排名（輕量模式，僅 2 個請求）...")
+
+    up_list = fetch_inst_rankings(window, 'up') or []
+    down_list = fetch_inst_rankings(window, 'down') or []
+
+    score_map = {}
+    for item in up_list:
+        code = item.get('code', '')
+        score_map[code] = abs(item.get('change', 0.0))
+    for item in down_list:
+        code = item.get('code', '')
+        score_map[code] = -abs(item.get('change', 0.0))
+
+    # 建立與 close_df 同形狀的矩陣，全部填 0
+    inst_flow_df = pd.DataFrame(0.0, index=close_df.index, columns=close_df.columns)
+
+    # 只在最新一列填入排名分數（代表當下法人籌碼狀態）
+    latest_idx = close_df.index[-1]
+    for ticker in tickers:
+        if ticker in score_map:
+            inst_flow_df.loc[latest_idx, ticker] = score_map[ticker]
+
+    matched = sum(1 for t in tickers if t in score_map)
+    if verbose:
+        print(f"   ✅ 法人排名抓取完成，{matched}/{len(tickers)} 檔有法人資料")
+
+    return inst_flow_df
+
+
 def get_inst_flow_for_signals(tickers, window=20):
     """
     為即時信號取得三大法人籌碼標注。
@@ -220,4 +271,5 @@ def get_inst_flow_for_signals(tickers, window=20):
             }
 
     return result
+
 
