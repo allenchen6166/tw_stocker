@@ -38,7 +38,7 @@ import numpy as np
 # 確保 strategy/ 可被 import
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from strategy.ai_strategy import fetch_panel_data, engineer_features, build_liquid_universe
+from strategy.ai_strategy import fetch_panel_data, engineer_features, build_liquid_universe, fetch_dynamic_top_tickers
 from strategy.event_backtest import EventDrivenBacktester
 from strategy.evaluation import slice_evaluation_window
 from strategy.risk_metrics import compute_risk_metrics, format_metrics_summary
@@ -1813,7 +1813,15 @@ def main():
         tickers = args.tickers if args.tickers else DEFAULT_TICKERS
         use_dynamic = False
     else:
-        tickers = EXTENDED_TICKERS
+        # 動態篩選：用 FinMind 即時抓成交額 Top-50
+        print("🔍 動態篩選股池（成交額 Top-50）...")
+        dynamic_tickers = fetch_dynamic_top_tickers(top_n=50, days=30, verbose=True)
+        if dynamic_tickers and len(dynamic_tickers) >= 20:
+            tickers = dynamic_tickers
+            print(f"   ✅ 動態選出 {len(tickers)} 檔")
+        else:
+            print("   ⚠️ 動態篩選失敗，fallback 到預設股池")
+            tickers = EXTENDED_TICKERS
         use_dynamic = True
 
     mode_str = f"動態 Universe (Top-{args.universe_size})" if use_dynamic else f"靜態 ({len(tickers)} 檔)"
@@ -2004,5 +2012,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
