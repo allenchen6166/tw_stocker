@@ -43,7 +43,7 @@ from strategy.event_backtest import EventDrivenBacktester
 from strategy.evaluation import slice_evaluation_window
 from strategy.risk_metrics import compute_risk_metrics, format_metrics_summary
 from strategy.benchmark import fetch_benchmark, equal_weight_benchmark, compute_excess_return
-from strategy.institutional_flow import build_inst_flow_df, get_inst_flow_for_signals, fetch_inst_rankings
+from strategy.institutional_flow import build_inst_flow_df, build_inst_score_from_rankings, get_inst_flow_for_signals, fetch_inst_rankings
 from strategy.news_sentiment import get_news_sentiment_for_signals
 
 # 嘗試載入 exchange_calendars
@@ -1851,7 +1851,7 @@ def main():
     inst_flow_df = None
     if args.inst_flow > 0:
         try:
-            inst_flow_df, inst_ratio_df = build_inst_flow_df(
+            inst_flow_df = build_inst_score_from_rankings(
                 list(close_df.columns), close_df, verbose=True)
         except Exception as e:
             print(f"   ⚠️ 籌碼數據抓取失敗，跳過: {e}")
@@ -2004,4 +2004,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
