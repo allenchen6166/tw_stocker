@@ -1692,8 +1692,8 @@ def parse_args():
         help='空頭 regime 最低曝險下限 (0.0=完全停止, 0.2=維持20%%進場能力)'
     )
     parser.add_argument(
-        '--inst-flow', type=float, default=0.0,
-        help='籌碼因子權重 (預設 0 = 停用; 建議先用 0 觀察，累積數據後再加權)'
+        '--inst-flow', type=float, default=1.0,
+        help='籌碼因子權重 (預設 1.0 = 啟用; 0 = 停用)'
     )
     parser.add_argument(
         '--confidence-k', action='store_true',
@@ -2004,3 +2004,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
