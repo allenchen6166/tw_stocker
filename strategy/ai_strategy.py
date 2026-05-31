@@ -11,13 +11,26 @@ Production scoring: rank_momentum × 3 + rank_trend × 1
 
 STRATEGY_VERSION = "v8.5"
 
-import yfinance as yf
+import os
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import warnings
 
 warnings.filterwarnings('ignore')
+
+# FinMind 優先，fallback 到 yfinance
+try:
+    from FinMind.data import DataLoader as _FMLoader
+    _FM_TOKEN = os.environ.get('FINMIND_TOKEN', '')
+    _fm = _FMLoader()
+    if _FM_TOKEN:
+        _fm.login_by_token(api_token=_FM_TOKEN)
+    HAS_FINMIND = True
+except ImportError:
+    HAS_FINMIND = False
+
+import yfinance as yf
 
 
 def fetch_panel_data(tickers, days=800, start_date=None, end_date=None):
@@ -52,10 +65,76 @@ def fetch_panel_data(tickers, days=800, start_date=None, end_date=None):
         start_dt = end_dt - timedelta(days=days)
         actual_days = days
 
-    print(f"📥 正在批次下載 {len(tickers)} 檔股票的歷史資料 "
-          f"({start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')}, "
-          f"~{actual_days} 天)...")
+    if HAS_FINMIND:
+        print(f"📥 [FinMind] 正在下載 {len(tickers)} 檔股票資料 "
+              f"({start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')})...")
+        return _fetch_panel_finmind(tickers, start_dt, end_dt)
+    else:
+        print(f"📥 [yfinance] 正在下載 {len(tickers)} 檔股票資料 "
+              f"({start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')})...")
+        return _fetch_panel_yfinance(tickers, start_dt, end_dt)
 
+
+def _fetch_panel_finmind(tickers, start_dt, end_dt):
+    """用 FinMind 批次下載台股 OHLCV（速度快、不限速）。"""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    start_str = start_dt.strftime('%Y-%m-%d')
+    end_str = end_dt.strftime('%Y-%m-%d')
+
+    col_map = {'open': 'Open', 'max': 'High', 'min': 'Low',
+               'close': 'Close', 'Trading_Volume': 'Volume'}
+
+    def _fetch_one(ticker):
+        try:
+            df = _fm.taiwan_stock_daily(
+                stock_id=ticker, start_date=start_str, end_date=end_str)
+            if df is None or df.empty:
+                return ticker, None
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.set_index('date').sort_index()
+            df = df.rename(columns=col_map)
+            return ticker, df[['Open', 'High', 'Low', 'Close', 'Volume']]
+        except Exception:
+            return ticker, None
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {executor.submit(_fetch_one, t): t for t in tickers}
+        done = 0
+        for future in as_completed(futures):
+            ticker, df = future.result()
+            done += 1
+            if df is not None:
+                results[ticker] = df
+            if done % 20 == 0:
+                print(f"   📦 已下載 {done}/{len(tickers)} 檔...")
+
+    if not results:
+        raise RuntimeError("FinMind 無法下載任何資料")
+
+    # 建立共同日期索引
+    all_dates = sorted(set().union(*[set(df.index) for df in results.values()]))
+    idx = pd.DatetimeIndex(all_dates)
+
+    def _build(col):
+        d = {t: results[t][col].reindex(idx) for t in results if col in results[t].columns}
+        df = pd.DataFrame(d)
+        return df.ffill(limit=1) if col == 'Close' else df
+
+    close_df = _build('Close')
+    open_df  = _build('Open')
+    high_df  = _build('High')
+    low_df   = _build('Low')
+    vol_df   = _build('Volume')
+
+    print(f"   ✅ FinMind 下載完成，{close_df.index[0].strftime('%Y-%m-%d')}"
+          f" → {close_df.index[-1].strftime('%Y-%m-%d')}，共 {len(close_df.columns)} 檔")
+    return close_df, open_df, high_df, low_df, vol_df
+
+
+def _fetch_panel_yfinance(tickers, start_dt, end_dt):
+    """yfinance fallback（原有邏輯）。"""
     def _extract_field(raw_df, field):
         if raw_df.empty:
             return pd.DataFrame()
@@ -78,59 +157,37 @@ def fetch_panel_data(tickers, days=800, start_date=None, end_date=None):
         return extracted
 
     def _download_symbols(symbols):
+        import yfinance as yf
         downloaded = []
         batch_size = 50
-        for batch_start in range(0, len(symbols), batch_size):
-            batch = symbols[batch_start:batch_start + batch_size]
-            batch_num = batch_start // batch_size + 1
-            total_batches = (len(symbols) + batch_size - 1) // batch_size
-            print(f"   📦 下載批次 {batch_num}/{total_batches} ({len(batch)} 檔)...")
+        for i in range(0, len(symbols), batch_size):
+            batch = symbols[i:i+batch_size]
             batch_df = yf.download(batch, start=start_dt, end=end_dt, progress=False)
             if not batch_df.empty:
                 downloaded.append(batch_df)
         return downloaded
 
-    # yfinance 批次下載有大小限制，分批處理
     tw_tickers = [f"{t}.TW" for t in tickers]
     all_dfs = _download_symbols(tw_tickers)
-
     if not all_dfs:
-        raise RuntimeError("無法下載任何資料")
-
-    # 合併所有批次
+        raise RuntimeError("yfinance 無法下載任何資料")
     df = all_dfs[0] if len(all_dfs) == 1 else pd.concat(all_dfs, axis=1)
 
-    # 上櫃股票常用 .TWO 後綴；先抓 .TW，缺資料者再 fallback。
     close_probe = _extract_field(df, 'Close')
-    missing_tickers = [
-        ticker for ticker in tickers
-        if ticker not in close_probe.columns or close_probe[ticker].dropna().empty
-    ]
-    if missing_tickers:
-        print(f"   🔁 .TW 無資料，改試 .TWO: {len(missing_tickers)} 檔")
-        two_dfs = _download_symbols([f"{t}.TWO" for t in missing_tickers])
+    missing = [t for t in tickers if t not in close_probe.columns or close_probe[t].dropna().empty]
+    if missing:
+        two_dfs = _download_symbols([f"{t}.TWO" for t in missing])
         if two_dfs:
             df = pd.concat([df] + two_dfs, axis=1)
 
     data = {}
     for col in ['Close', 'Open', 'High', 'Low', 'Volume']:
         temp_df = _extract_field(df, col)
-        if temp_df.empty:
-            print(f"   ⚠️ 欄位 {col} 不存在，跳過")
-            continue
+        if not temp_df.empty:
+            data[col] = temp_df.ffill(limit=1) if col == 'Close' else temp_df
 
-        # Keep tradable bars raw. Forward-filling Open/High/Low/Volume creates
-        # fake fills and fake liquidity on missing or suspended days. Close is
-        # only used as an indicator/marking input here, so allow a one-day carry
-        # to bridge isolated vendor gaps without creating long synthetic series.
-        if col == 'Close':
-            data[col] = temp_df.ffill(limit=1)
-        else:
-            data[col] = temp_df
-
-    print(f"   ✅ 下載完成，資料範圍：{data['Close'].index[0].strftime('%Y-%m-%d')}"
-          f" → {data['Close'].index[-1].strftime('%Y-%m-%d')}"
-          f"，共 {len(data['Close'].columns)} 檔")
+    print(f"   ✅ yfinance 下載完成，{data['Close'].index[0].strftime('%Y-%m-%d')}"
+          f" → {data['Close'].index[-1].strftime('%Y-%m-%d')}，共 {len(data['Close'].columns)} 檔")
     return data['Close'], data['Open'], data['High'], data['Low'], data['Volume']
 
 
@@ -482,3 +539,4 @@ def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
 
     print(f"   ✅ ML 因子加權完成 (模型訓練 {(len(dates) - train_window) // retrain_interval} 次)")
     return total_score
+
