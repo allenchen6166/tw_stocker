@@ -57,6 +57,8 @@ jobs:
 
       - name: Run AI Quant Pipeline v8.5
         if: github.event.schedule != '0 10 1 * *'
+        env:
+          FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}
         run: |
           python ai_report.py \
             --regime-filter \
