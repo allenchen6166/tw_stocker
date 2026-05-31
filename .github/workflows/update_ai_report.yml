@@ -68,7 +68,8 @@ jobs:
             --hold-days ${{ github.event.inputs.hold_days || '20' }} \
             --top-k ${{ github.event.inputs.top_k || '7' }} \
             --gap-filter ${{ github.event.inputs.gap_filter || '1.5' }} \
-            --days ${{ github.event.inputs.days || '1200' }}
+            --days ${{ github.event.inputs.days || '1200' }} \
+            --inst-flow 1.0
 
       - name: Paper Trading Tracker
         if: github.event.schedule != '0 10 1 * *'
@@ -168,3 +169,4 @@ jobs:
           git rebase --autostash origin/main
 
           git push origin HEAD:main
+
