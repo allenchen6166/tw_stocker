@@ -22,6 +22,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from functools import lru_cache
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE_URL = "https://voidful.github.io/tw-institutional-stocker/data"
 TIMEOUT = 15
@@ -98,43 +99,47 @@ def build_inst_flow_df(tickers, close_df, verbose=True):
         三大法人持股比重矩陣 (date × ticker)
     """
     if verbose:
-        print(f"🏛️ 正在抓取 {len(tickers)} 檔股票的三大法人數據...")
+        print(f"🏛️ 正在平行抓取 {len(tickers)} 檔股票的三大法人數據（最多 20 執行緒）...")
 
     flow_data = {}
     ratio_data = {}
     success = 0
     failed = 0
 
-    for i, ticker in enumerate(tickers):
+    def _fetch_one(ticker):
         series = fetch_inst_timeseries(ticker)
-        if series is None or len(series) == 0:
-            failed += 1
-            continue
+        return ticker, series
 
-        success += 1
-        for record in series:
-            dt = record.get('date')
-            if dt is None:
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        futures = {executor.submit(_fetch_one, t): t for t in tickers}
+        done_count = 0
+        for future in as_completed(futures):
+            ticker, series = future.result()
+            done_count += 1
+            if series is None or len(series) == 0:
                 continue
-            try:
-                date_idx = pd.Timestamp(dt)
-            except Exception:
-                continue
+            for record in series:
+                dt = record.get('date')
+                if dt is None:
+                    continue
+                try:
+                    date_idx = pd.Timestamp(dt)
+                except Exception:
+                    continue
+                change_20 = record.get('three_inst_ratio_change_20', 0.0)
+                ratio = record.get('three_inst_ratio', 0.0)
+                if date_idx not in flow_data:
+                    flow_data[date_idx] = {}
+                    ratio_data[date_idx] = {}
+                flow_data[date_idx][ticker] = change_20
+                ratio_data[date_idx][ticker] = ratio
 
-            change_20 = record.get('three_inst_ratio_change_20', 0.0)
-            ratio = record.get('three_inst_ratio', 0.0)
+            if verbose and done_count % 20 == 0:
+                print(f"   📦 已處理 {done_count}/{len(tickers)} 檔...")
 
-            if date_idx not in flow_data:
-                flow_data[date_idx] = {}
-                ratio_data[date_idx] = {}
-            flow_data[date_idx][ticker] = change_20
-            ratio_data[date_idx][ticker] = ratio
-
-        if verbose and (i + 1) % 10 == 0:
-            print(f"   📦 已處理 {i + 1}/{len(tickers)} 檔...")
-
+    success = sum(1 for d in flow_data.values() for _ in [d])
     if verbose:
-        print(f"   ✅ 籌碼數據: {success} 檔成功, {failed} 檔失敗")
+        print(f"   ✅ 籌碼數據抓取完成，共 {len(flow_data)} 個交易日有資料")
 
     if not flow_data:
         # 回傳空 DataFrame（與 close_df 同形狀，全 NaN）
@@ -215,3 +220,4 @@ def get_inst_flow_for_signals(tickers, window=20):
             }
 
     return result
+
