@@ -44,6 +44,7 @@ from strategy.evaluation import slice_evaluation_window
 from strategy.risk_metrics import compute_risk_metrics, format_metrics_summary
 from strategy.benchmark import fetch_benchmark, equal_weight_benchmark, compute_excess_return
 from strategy.institutional_flow import build_inst_flow_df, build_inst_score_from_rankings, get_inst_flow_for_signals, fetch_inst_rankings
+from strategy.us_market import fetch_us_signals
 from strategy.news_sentiment import get_news_sentiment_for_signals
 
 # 嘗試載入 exchange_calendars
@@ -1876,6 +1877,14 @@ def main():
         if len(bench_raw) > 0:
             market_close = bench_raw * bench_raw.iloc[0]
 
+    # Phase 3.6: 下載美股信號用於動態評分窗口
+    us_signals = None
+    try:
+        print("\n🌍 下載美股信號（動態評分窗口用）...")
+        us_signals = fetch_us_signals(days=args.days + 60)
+    except Exception as e:
+        print(f"   ⚠️ 美股信號下載失敗，使用固定窗口: {e}")
+
     # Phase 3: 特徵工程
     total_score, ma_60, atr_df, short_ma = engineer_features(
         close_df, vol_df, universe_mask,
@@ -1893,6 +1902,7 @@ def main():
         breakout_weight=args.breakout_weight,
         value_weight=args.value_weight,
         rev_momentum_weight=args.rev_momentum_weight,
+        us_signals=us_signals,
     )
 
     # Phase 4: 事件驅動回測
@@ -2012,6 +2022,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
