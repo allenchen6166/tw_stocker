@@ -471,7 +471,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         )
 
         trading_plan_rows += (
-            f'<tr><td>{ticker}</td><td>{score:.2f}</td>'
+            f'<tr><td><b>{ticker}</b><br><span style="font-size:0.78rem;color:#aaa;">{stock_name_map.get(ticker, "")}</span></td><td>{score:.2f}</td>'
             f'<td>{price:.1f}</td><td>{status}</td><td>{plan}</td>'
             f'<td>{hist_badge}</td>{inst_badge}</tr>\n'
         )
@@ -536,7 +536,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
             color = "#00ff00" if row['Return_Pct'] > 0 else "#ff4444"
             trade_history_rows += (
                 f'<tr>'
-                f'<td>{row["Ticker"]}</td>'
+                f'<td><b>{row["Ticker"]}</b><br><span style="font-size:0.75rem;color:#aaa;">{stock_name_map.get(row["Ticker"],"")}</span></td>'
                 f'<td>{row["Entry_Date"]}</td>'
                 f'<td>{row["Exit_Date"]}</td>'
                 f'<td>{row["Entry_Price"]:.1f}</td>'
@@ -960,7 +960,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 台股量化交易 v8.5 — {report_date}</title>
+    <title>台股預測平台 — {report_date}</title>
     <meta name="description" content="AI 驅動的台股量化交易系統 v8.5，完整風險報告、Benchmark 對比、OCO 智慧掛單建議">
     <script>
         (function() {{
@@ -1247,7 +1247,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 </button>
 <div class="container">
 
-    <h1>🎯 AI 台股量化交易 v8.5</h1>
+    <h1>🎯 台股預測平台</h1>
     <p class="subtitle">
         Event-Driven System &nbsp;|&nbsp; 報表日期: {report_date} &nbsp;|&nbsp;
         <span class="config-badge">🛡️ {mode_html}</span>
@@ -1481,7 +1481,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 def parse_args():
     """解析命令列參數。"""
     parser = argparse.ArgumentParser(
-        description='AI 台股量化交易系統 v8.5 — 事件驅動回測與交易計畫產生器'
+        description='台股預測平台 — 事件驅動回測與交易計畫產生器'
     )
     # 股池
     parser.add_argument(
@@ -1806,6 +1806,27 @@ def parse_args():
     return parser.parse_args()
 
 
+
+def _build_stock_name_map(tickers):
+    """
+    建立股票代號 → 名稱的對照字典。
+    優先用 FinMind taiwan_stock_info，失敗則回傳空字典。
+    """
+    try:
+        import os
+        from FinMind.data import DataLoader as _FMLoader
+        fm = _FMLoader()
+        token = os.environ.get('FINMIND_TOKEN', '')
+        if token:
+            fm.login_by_token(api_token=token)
+        info = fm.taiwan_stock_info()
+        if info is not None and not info.empty:
+            name_map = dict(zip(info['stock_id'], info['stock_name']))
+            return name_map
+    except Exception:
+        pass
+    return {}
+
 def main():
     args = parse_args()
 
@@ -1855,6 +1876,10 @@ def main():
         universe_mask = build_liquid_universe(close_df, vol_df, top_n=args.universe_size)
     else:
         universe_mask = None
+
+    # Phase 2.4: 建立股票名稱對照表
+    print("📋 建立股票名稱對照表...")
+    stock_name_map = _build_stock_name_map(tickers)
 
     # Phase 2.5: 籌碼時序數據（僅用於因子加權；報表顯示使用輕量 API）
     inst_flow_df = None
@@ -2022,6 +2047,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
