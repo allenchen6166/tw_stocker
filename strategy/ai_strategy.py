@@ -360,7 +360,8 @@ def engineer_features(close_df, vol_df, universe_mask=None,
                       rsi_weight=0.0,
                       breakout_weight=0.0,
                       value_weight=0.0,
-                      rev_momentum_weight=0.0):
+                      rev_momentum_weight=0.0,
+                      us_signals=None):
     """
     計算 AI 多維度特徵並做橫向百分位排名。
 
@@ -394,9 +395,31 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     """
     print("🧠 正在計算多維度弱特徵與 Rank 排名...")
 
+    # === 動態評分窗口（根據大盤 macro_regime 調整）===
+    # macro_regime 範圍：0.0（極熊）～ 1.0（極牛）
+    # 牛市（≥0.7）：拉長動能窗口至 40 日，捕捉趨勢延伸
+    # 熊市（≤0.3）：縮短動能窗口至 10 日，快速反應反彈
+    # 中性（0.3~0.7）：維持預設 20 日
+    if us_signals is not None and 'macro_regime' in us_signals.columns:
+        # 取最新一天的 regime 值作為當前市場狀態
+        latest_regime = float(us_signals['macro_regime'].dropna().iloc[-1]) if not us_signals['macro_regime'].dropna().empty else 0.5
+        if latest_regime >= 0.7:
+            mom_window = 40
+            regime_label = f"牛市 (regime={latest_regime:.2f})"
+        elif latest_regime <= 0.3:
+            mom_window = 10
+            regime_label = f"熊市 (regime={latest_regime:.2f})"
+        else:
+            mom_window = 20
+            regime_label = f"中性 (regime={latest_regime:.2f})"
+        print(f"   📊 動態動能窗口：{mom_window} 日 [{regime_label}]")
+    else:
+        mom_window = 20
+        print(f"   📊 動能窗口：{mom_window} 日（固定，無大盤信號）")
+
     # === 原始指標計算 ===
-    # 1. 20 日動能：今天收盤 / 20 天前收盤
-    mom_20 = close_df / close_df.shift(20)
+    # 1. 動態動能：今天收盤 / N 天前收盤（N 由 macro_regime 決定）
+    mom_20 = close_df / close_df.shift(mom_window)
 
     # 2. MA 乖離率：價格偏離均線的幅度
     ma_long = close_df.rolling(ma_period).mean()
@@ -658,6 +681,7 @@ def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
 
     print(f"   ✅ ML 因子加權完成 (模型訓練 {(len(dates) - train_window) // retrain_interval} 次)")
     return total_score
+
 
 
 
