@@ -164,8 +164,12 @@ def build_inst_score_from_rankings(tickers, close_df, window=20, verbose=True):
     用排名 JSON（兩個請求）快速建立法人買超評分矩陣。
     比逐檔抓時序快 100 倍，適合每日自動排程使用。
 
-    買超名單中的股票給正分，賣超給負分，其餘為 0。
-    分數以 change 幅度為準（變化越大分數越高/低）。
+    修正：把最新排名分數往前填充 window 天，並加入線性衰減，
+    讓法人因子在整個持倉窗口都能影響選股，而非只有最後一天。
+
+    衰減公式：score × (i+1)/window
+      - 最新一天：score × 1.0（滿分）
+      - 往前第 window 天：score × 1/window（最低權重）
 
     Parameters
     ----------
@@ -173,17 +177,17 @@ def build_inst_score_from_rankings(tickers, close_df, window=20, verbose=True):
     close_df : pd.DataFrame
         用於對齊日期索引
     window : int
-        排名視窗天數 (5, 20, 60, 120)
+        往前填充天數，同時也是排名視窗天數（預設 20）
 
     Returns
     -------
     inst_flow_df : pd.DataFrame
-        (date × ticker) 法人買超分數矩陣，最新一列有值，其餘填 0
+        (date × ticker) 法人買超分數矩陣，最新 window 天有遞減分數
     """
     if verbose:
         print(f"🏛️ 抓取三大法人排名（輕量模式，僅 2 個請求）...")
 
-    up_list = fetch_inst_rankings(window, 'up') or []
+    up_list   = fetch_inst_rankings(window, 'up')   or []
     down_list = fetch_inst_rankings(window, 'down') or []
 
     score_map = {}
@@ -197,15 +201,29 @@ def build_inst_score_from_rankings(tickers, close_df, window=20, verbose=True):
     # 建立與 close_df 同形狀的矩陣，全部填 0
     inst_flow_df = pd.DataFrame(0.0, index=close_df.index, columns=close_df.columns)
 
-    # 只在最新一列填入排名分數（代表當下法人籌碼狀態）
-    latest_idx = close_df.index[-1]
+    if not score_map:
+        if verbose:
+            print(f"   ⚠️ 法人排名資料為空")
+        return inst_flow_df
+
+    # 取最近 window 個交易日的索引
+    recent_idx = close_df.index[-window:] if len(close_df) >= window else close_df.index
+
+    # 線性衰減權重：最新一天 = 1.0，最舊一天 = 1/window
+    n = len(recent_idx)
+    weights = [(i + 1) / n for i in range(n)]  # [1/n, 2/n, ..., 1.0]
+
     for ticker in tickers:
-        if ticker in score_map:
-            inst_flow_df.loc[latest_idx, ticker] = score_map[ticker]
+        if ticker not in score_map:
+            continue
+        base_score = score_map[ticker]
+        for idx, w in zip(recent_idx, weights):
+            inst_flow_df.loc[idx, ticker] = base_score * w
 
     matched = sum(1 for t in tickers if t in score_map)
     if verbose:
-        print(f"   ✅ 法人排名抓取完成，{matched}/{len(tickers)} 檔有法人資料")
+        print(f"   ✅ 法人排名抓取完成，{matched}/{len(tickers)} 檔有法人資料"
+              f"（填充最近 {n} 個交易日，線性衰減）")
 
     return inst_flow_df
 
@@ -271,5 +289,6 @@ def get_inst_flow_for_signals(tickers, window=20):
             }
 
     return result
+
 
 
