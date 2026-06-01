@@ -227,10 +227,133 @@ def _build_inst_section():
 
 
 
+
+def _compute_stock_metrics(ticker, close_df, vol_df=None, ma_period=60):
+    """計算個股關鍵指標：MA60距離、20日漲幅、成交量比、52週位置"""
+    if ticker not in close_df.columns:
+        return {}
+    s = close_df[ticker].dropna()
+    if len(s) < 20:
+        return {}
+    price = s.iloc[-1]
+
+    # 距 MA60
+    ma60 = s.rolling(ma_period).mean().iloc[-1]
+    ma_dist = (price / ma60 - 1) * 100 if not pd.isna(ma60) else None
+
+    # 20日漲幅
+    mom_20 = (price / s.iloc[-21] - 1) * 100 if len(s) >= 21 else None
+
+    # 成交量比（5日均量 / 20日均量）
+    vol_ratio = None
+    if vol_df is not None and ticker in vol_df.columns:
+        v = vol_df[ticker].dropna()
+        if len(v) >= 20:
+            v5 = v.iloc[-5:].mean()
+            v20 = v.iloc[-20:].mean()
+            vol_ratio = v5 / v20 if v20 > 0 else None
+
+    # 52週位置（當前價格在年高低範圍的百分位）
+    pos_52w = None
+    if len(s) >= 252:
+        hi = s.iloc[-252:].max()
+        lo = s.iloc[-252:].min()
+        pos_52w = (price - lo) / (hi - lo) * 100 if hi > lo else 50
+
+    # 風險警示
+    warnings = []
+    if mom_20 is not None and mom_20 > 15:
+        warnings.append(f"⚠️ 近20日漲幅 {mom_20:+.1f}%，可能過熱")
+    if ma_dist is not None and ma_dist > 20:
+        warnings.append(f"⚠️ 距MA60達 {ma_dist:+.1f}%，注意回落風險")
+    if vol_ratio is not None and vol_ratio > 3:
+        warnings.append(f"⚠️ 成交量爆量 {vol_ratio:.1f}x，注意追高")
+    if pos_52w is not None and pos_52w > 90:
+        warnings.append("⚠️ 接近52週高點，上方空間有限")
+
+    return {
+        'ma_dist': ma_dist,
+        'mom_20': mom_20,
+        'vol_ratio': vol_ratio,
+        'pos_52w': pos_52w,
+        'warnings': warnings,
+    }
+
+
+def _factor_bar(value_pct, color='#00aaff', width=80):
+    """產生因子強度進度條 HTML"""
+    pct = max(0, min(100, value_pct))
+    filled = int(pct * width / 100)
+    return (
+        f'<div style="background:#222;border-radius:3px;width:{width}px;height:8px;display:inline-block;vertical-align:middle;">'
+        f'<div style="background:{color};width:{filled}px;height:8px;border-radius:3px;"></div>'
+        f'</div> <span style="font-size:0.72rem;color:#aaa;">{pct:.0f}%</span>'
+    )
+
+
+def _build_market_env_section(us_signals):
+    """建立市場環境區塊 HTML"""
+    if us_signals is None or us_signals.empty:
+        return ''
+    try:
+        latest = us_signals.iloc[-1]
+        spy_trend = int(latest.get('spy_trend', 1))
+        vix = float(latest.get('vix_close', 20))
+        sox_trend = int(latest.get('sox_trend', 1))
+        regime = float(latest.get('macro_regime', 0.5))
+
+        spy_icon = '↑ 多頭' if spy_trend else '↓ 空頭'
+        spy_color = '#00ff00' if spy_trend else '#ff4444'
+        sox_icon = '↑ 多頭' if sox_trend else '↓ 空頭'
+        sox_color = '#00ff00' if sox_trend else '#ff4444'
+        vix_color = '#00ff00' if vix < 20 else '#ffab00' if vix < 28 else '#ff4444'
+
+        if regime >= 0.7:
+            regime_label = '🐂 牛市（滿倉模式）'
+            regime_color = '#00ff00'
+            mom_window = 40
+        elif regime <= 0.3:
+            regime_label = '🐻 熊市（縮倉模式）'
+            regime_color = '#ff4444'
+            mom_window = 10
+        else:
+            regime_label = '😐 中性（標準模式）'
+            regime_color = '#ffab00'
+            mom_window = 20
+
+        return f"""
+<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
+  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">🌍 當前市場環境</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;">
+    <div style="background:#222;border-radius:6px;padding:0.5rem;">
+      <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">SPY 趨勢</div>
+      <div style="font-weight:bold;color:{spy_color};">{spy_icon}</div>
+    </div>
+    <div style="background:#222;border-radius:6px;padding:0.5rem;">
+      <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">VIX 恐慌指數</div>
+      <div style="font-weight:bold;color:{vix_color};">{vix:.1f}</div>
+    </div>
+    <div style="background:#222;border-radius:6px;padding:0.5rem;">
+      <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">費半 SOX</div>
+      <div style="font-weight:bold;color:{sox_color};">{sox_icon}</div>
+    </div>
+    <div style="background:#222;border-radius:6px;padding:0.5rem;">
+      <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">Regime 曝險</div>
+      <div style="font-weight:bold;color:{regime_color};">{regime:.0%}</div>
+    </div>
+  </div>
+  <div style="margin-top:0.75rem;font-size:0.82rem;color:{regime_color};">
+    {regime_label} &nbsp;|&nbsp; 📊 動能窗口：{mom_window} 日
+  </div>
+</div>"""
+    except Exception:
+        return ''
+
 def generate_report(trades_df, equity_df, total_score, close_df, config,
                     metrics, benchmark_equity=None, ew_equity=None,
                     benchmark2_equity=None,
-                    high_df=None, low_df=None, show_inst=True):
+                    high_df=None, low_df=None, vol_df=None,
+                    show_inst=True, us_signals=None, stock_name_map=None):
     """
     產出 AI 交易計畫 HTML 報表與資金曲線圖（v2 完整版）。
 
@@ -240,6 +363,8 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         最高/最低價矩陣，用於精確 ATR 計算（對齊回測引擎）。
     """
     print("📊 產出 AI 交易計畫與績效報表...")
+    if stock_name_map is None:
+        stock_name_map = {}
 
     tp_pct = config['tp_pct']
     sl_pct = config['sl_pct']
@@ -378,6 +503,9 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 
     trading_plan_rows = ""
 
+    # 市場環境區塊
+    market_env_html = _build_market_env_section(us_signals)
+
     # 籌碼 + 新聞標注（always on）
     all_tickers = [t for t, _, _ in selected] + [t for t, _, _ in not_selected[:5]]
     inst_data = {}
@@ -470,9 +598,61 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
             f'<td><span style="font-size:0.78rem;">{news_label}</span></td>'
         )
 
+        # 個股關鍵指標
+        sm = _compute_stock_metrics(ticker, close_df, vol_df, ma_period)
+        ma_dist_str = f'{sm["ma_dist"]:+.1f}%' if sm.get('ma_dist') is not None else '-'
+        mom_str = f'{sm["mom_20"]:+.1f}%' if sm.get('mom_20') is not None else '-'
+        vol_str = f'{sm["vol_ratio"]:.1f}x' if sm.get('vol_ratio') is not None else '-'
+        pos_str = f'{sm["pos_52w"]:.0f}%' if sm.get('pos_52w') is not None else '-'
+        ma_color = '#00ff00' if (sm.get('ma_dist') or 0) > 0 else '#ff4444'
+        mom_color = '#00ff00' if (sm.get('mom_20') or 0) > 0 else '#ff4444'
+        vol_color = '#ffab00' if (sm.get('vol_ratio') or 1) > 2 else '#aaa'
+
+        # 因子分解條（動能 + 趨勢 + 法人）
+        # 由 total_score 反推各因子百分位（用最新一列）
+        def _get_rank_pct(series_2d, ticker):
+            if ticker not in series_2d.columns: return 50.0
+            row = series_2d.iloc[-1]
+            valid = row.dropna()
+            if valid.empty: return 50.0
+            val = row.get(ticker, np.nan)
+            if pd.isna(val): return 50.0
+            return float((valid < val).sum() / len(valid) * 100)
+
+        mom_pct  = _get_rank_pct(close_df / close_df.shift(20), ticker)
+        trend_pct = _get_rank_pct(close_df / close_df.rolling(60).mean(), ticker)
+        inst_pct = 50 + min(50, max(-50, idata.get('change', 0) * 10))
+
+        factor_breakdown = (
+            f'<div style="font-size:0.72rem;line-height:1.8;">'
+            f'動能 {_factor_bar(mom_pct, "#00aaff")}<br>'
+            f'趨勢 {_factor_bar(trend_pct, "#00ddaa")}<br>'
+            f'法人 {_factor_bar(inst_pct, "#ffaa00")}'
+            f'</div>'
+        )
+
+        # 風險警示
+        warns = sm.get('warnings', [])
+        warn_html = ''
+        if warns:
+            warn_html = '<br>' + '<br>'.join(f'<span style="color:#ffab00;font-size:0.72rem;">{w}</span>' for w in warns)
+
+        metrics_html = (
+            f'<div style="font-size:0.75rem;line-height:1.8;color:#aaa;">'
+            f'距MA60: <span style="color:{ma_color}">{ma_dist_str}</span><br>'
+            f'20日漲幅: <span style="color:{mom_color}">{mom_str}</span><br>'
+            f'量能比: <span style="color:{vol_color}">{vol_str}</span><br>'
+            f'52週位: {pos_str}'
+            f'{warn_html}'
+            f'</div>'
+        )
+
         trading_plan_rows += (
-            f'<tr><td><b>{ticker}</b><br><span style="font-size:0.78rem;color:#aaa;">{stock_name_map.get(ticker, "")}</span></td><td>{score:.2f}</td>'
-            f'<td>{price:.1f}</td><td>{status}</td><td>{plan}</td>'
+            f'<tr>'
+            f'<td><b>{ticker}</b><br><span style="font-size:0.78rem;color:#aaa;">{stock_name_map.get(ticker, "") if stock_name_map else ""}</span></td>'
+            f'<td>{score:.2f}<br>{factor_breakdown}</td>'
+            f'<td>{price:.1f}<br>{metrics_html}</td>'
+            f'<td>{status}</td><td>{plan}</td>'
             f'<td>{hist_badge}</td>{inst_badge}</tr>\n'
         )
         if order_valid:
@@ -1308,6 +1488,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         </div>
     </div>
 
+    {market_env_html}
     <h2>🚀 今日 AI 交易執行單</h2>
     <p class="section-note">
         信號基於昨日收盤產生，建議於明日開盤價附近掛單進場。
@@ -2040,13 +2221,16 @@ def main():
     generate_report(report_trades_df, report_equity_df, total_score, close_df, config,
                     metrics, benchmark_equity, ew_equity,
                     benchmark2_equity=benchmark2_equity,
-                    high_df=high_df, low_df=low_df,
-                    show_inst=args.show_inst)
+                    high_df=high_df, low_df=low_df, vol_df=vol_df,
+                    show_inst=args.show_inst,
+                    us_signals=us_signals,
+                    stock_name_map=stock_name_map)
     print("\n🚀 全部完成！請打開 stock_report.html 查看結果。")
 
 
 if __name__ == '__main__':
     main()
+
 
 
 
