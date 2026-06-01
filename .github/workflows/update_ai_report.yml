@@ -94,6 +94,7 @@ jobs:
 
           git add stock_report.html backtest_chart.png paper_trading.html paper_equity.json || true
           git add -u artifacts || true
+          git add data/*.parquet 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes"
@@ -171,5 +172,6 @@ jobs:
           git rebase --autostash origin/main
 
           git push origin HEAD:main
+
 
 
