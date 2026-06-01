@@ -522,6 +522,27 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     # 籌碼動態 HTML section
     inst_section_html = _build_inst_section()
 
+    # 預先計算因子矩陣（迴圈外，避免重複計算）
+    try:
+        _mom_matrix   = close_df / close_df.shift(20)
+        _trend_matrix = close_df / close_df.rolling(60).mean()
+    except Exception:
+        _mom_matrix   = None
+        _trend_matrix = None
+
+    def _get_rank_pct_fast(matrix, ticker):
+        if matrix is None or ticker not in matrix.columns:
+            return 50.0
+        try:
+            row = matrix.iloc[-1]
+            valid = row.dropna()
+            if valid.empty: return 50.0
+            val = row.get(ticker, np.nan)
+            if pd.isna(val): return 50.0
+            return float((valid < val).sum() / len(valid) * 100)
+        except Exception:
+            return 50.0
+
     # 顯示 Top-K 建議買進
     orders = []
     for rank, (ticker, score, price) in enumerate(selected, 1):
@@ -609,27 +630,19 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         vol_color = '#ffab00' if (sm.get('vol_ratio') or 1) > 2 else '#aaa'
 
         # 因子分解條（動能 + 趨勢 + 法人）
-        # 由 total_score 反推各因子百分位（用最新一列）
-        def _get_rank_pct(series_2d, ticker):
-            if ticker not in series_2d.columns: return 50.0
-            row = series_2d.iloc[-1]
-            valid = row.dropna()
-            if valid.empty: return 50.0
-            val = row.get(ticker, np.nan)
-            if pd.isna(val): return 50.0
-            return float((valid < val).sum() / len(valid) * 100)
-
-        mom_pct  = _get_rank_pct(close_df / close_df.shift(20), ticker)
-        trend_pct = _get_rank_pct(close_df / close_df.rolling(60).mean(), ticker)
-        inst_pct = 50 + min(50, max(-50, idata.get('change', 0) * 10))
-
-        factor_breakdown = (
-            f'<div style="font-size:0.72rem;line-height:1.8;">'
-            f'動能 {_factor_bar(mom_pct, "#00aaff")}<br>'
-            f'趨勢 {_factor_bar(trend_pct, "#00ddaa")}<br>'
-            f'法人 {_factor_bar(inst_pct, "#ffaa00")}'
-            f'</div>'
-        )
+        try:
+            mom_pct   = _get_rank_pct_fast(_mom_matrix, ticker)
+            trend_pct = _get_rank_pct_fast(_trend_matrix, ticker)
+            inst_pct  = 50 + min(50, max(-50, idata.get('change', 0) * 10))
+            factor_breakdown = (
+                f'<div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">'
+                f'動能 {_factor_bar(mom_pct, "#00aaff")}<br>'
+                f'趨勢 {_factor_bar(trend_pct, "#00ddaa")}<br>'
+                f'法人 {_factor_bar(inst_pct, "#ffaa00")}'
+                f'</div>'
+            )
+        except Exception:
+            factor_breakdown = ''
 
         # 風險警示
         warns = sm.get('warnings', [])
