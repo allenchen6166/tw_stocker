@@ -19,6 +19,17 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+# 資料快取
+try:
+    from strategy.data_cache import DataCache, load_all_cache, update_all_cache
+    HAS_CACHE = True
+except ImportError:
+    try:
+        from data_cache import DataCache, load_all_cache, update_all_cache
+        HAS_CACHE = True
+    except ImportError:
+        HAS_CACHE = False
+
 # FinMind 優先，fallback 到 yfinance
 try:
     from FinMind.data import DataLoader as _FMLoader
@@ -33,45 +44,87 @@ except ImportError:
 import yfinance as yf
 
 
-def fetch_panel_data(tickers, days=800, start_date=None, end_date=None):
+def fetch_panel_data(tickers, days=365, start_date=None, end_date=None):
     """
-    批次下載多檔台股的 OHLCV 日線資料。
+    批次下載多檔台股的 OHLCV 日線資料（優先使用快取）。
+
+    快取邏輯：
+    - 首次執行：完整下載 days 天並存入快取
+    - 後續執行：只下載快取結束日後的新資料，合併快取後回傳
 
     Parameters
     ----------
     tickers : list[str]
-        台股代號列表，例如 ['2330', '2317', '2454']
+        台股代號列表
     days : int
-        回溯天數，預設 800 天（約 3 年交易日）
+        回溯天數（首次建快取時使用，預設 365 天）
     start_date : str or datetime, optional
-        明確指定起始日期（優先於 days）
+        明確指定起始日期
     end_date : str or datetime, optional
         明確指定結束日期（預設為今天）
 
     Returns
     -------
     close_df, open_df, high_df, low_df, vol_df : tuple[pd.DataFrame]
-        各為 (日期 x 股票代號) 的 DataFrame，已做 forward fill
     """
     if end_date is not None:
         end_dt = pd.Timestamp(end_date)
     else:
         end_dt = pd.Timestamp(datetime.today())
 
+    end_str = end_dt.strftime('%Y-%m-%d')
+
     if start_date is not None:
         start_dt = pd.Timestamp(start_date)
-        actual_days = (end_dt - start_dt).days
     else:
         start_dt = end_dt - timedelta(days=days)
-        actual_days = days
 
+    start_str = start_dt.strftime('%Y-%m-%d')
+
+    # ===== 快取邏輯 =====
+    if HAS_CACHE:
+        cache = DataCache()
+        fetch_start, fetch_end, needs_full, missing_tickers = cache.get_missing_range(
+            tickers, end_str, full_days=days)
+
+        # 判斷是否需要下載
+        need_download = needs_full or (fetch_start < fetch_end) or bool(missing_tickers)
+
+        if need_download:
+            # 首次或有新資料/新股票需要下載
+            dl_tickers = tickers if needs_full else list(set(tickers + missing_tickers))
+            dl_start = start_str if needs_full else fetch_start
+
+            print(f"📥 下載新資料：{dl_start} → {fetch_end}，{len(dl_tickers)} 檔...")
+            if HAS_FINMIND:
+                new_close, new_open, new_high, new_low, new_vol = _fetch_panel_finmind(
+                    dl_tickers, pd.Timestamp(dl_start), pd.Timestamp(fetch_end))
+            else:
+                new_close, new_open, new_high, new_low, new_vol = _fetch_panel_yfinance(
+                    dl_tickers, pd.Timestamp(dl_start), pd.Timestamp(fetch_end))
+
+            # 更新快取
+            print("💾 更新資料快取...")
+            update_all_cache(new_close, new_open, new_high, new_low, new_vol, cache)
+        else:
+            print(f"✅ 快取已是最新，跳過下載")
+
+        # 從快取讀取完整資料
+        close_df, open_df, high_df, low_df, vol_df = load_all_cache(
+            tickers, start_str, end_str, cache)
+
+        if close_df is not None and not close_df.empty:
+            print(f"📦 從快取載入：{close_df.index[0].strftime('%Y-%m-%d')}"
+                  f" → {close_df.index[-1].strftime('%Y-%m-%d')}，{len(close_df.columns)} 檔")
+            return close_df, open_df, high_df, low_df, vol_df
+
+        print("⚠️ 快取讀取失敗，改為直接下載...")
+
+    # ===== 無快取：直接下載 =====
+    print(f"📥 直接下載 {len(tickers)} 檔，{start_str} → {end_str}...")
     if HAS_FINMIND:
-        print(f"📥 [FinMind] 正在下載 {len(tickers)} 檔股票資料 "
-              f"({start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')})...")
         return _fetch_panel_finmind(tickers, start_dt, end_dt)
     else:
-        print(f"📥 [yfinance] 正在下載 {len(tickers)} 檔股票資料 "
-              f"({start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')})...")
         return _fetch_panel_yfinance(tickers, start_dt, end_dt)
 
 
@@ -605,6 +658,7 @@ def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
 
     print(f"   ✅ ML 因子加權完成 (模型訓練 {(len(dates) - train_window) // retrain_interval} 次)")
     return total_score
+
 
 
 
