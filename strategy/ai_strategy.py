@@ -361,7 +361,8 @@ def engineer_features(close_df, vol_df, universe_mask=None,
                       breakout_weight=0.0,
                       value_weight=0.0,
                       rev_momentum_weight=0.0,
-                      us_signals=None):
+                      us_signals=None,
+                      rs_weight=1.5):
     """
     計算 AI 多維度特徵並做橫向百分位排名。
 
@@ -453,6 +454,35 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         except Exception as e:
             print(f"   ⚠️ 殘差動量計算失敗: {e}")
 
+    # === 相對強度（RS Rating）===
+    # 參考 IBD RS Rating：多窗口加權，衡量個股相對大盤的強弱
+    # 公式：RS = 個股累計報酬 / 大盤累計報酬（多時間窗口加權）
+    # 窗口：63日(×2) + 126日(×1) + 252日(×1)，近期更重要
+    rs_score = None
+    if market_close is not None:
+        try:
+            mkt_ret = market_close.pct_change().fillna(0)
+            stk_ret = close_df.pct_change().fillna(0)
+
+            # 對齊大盤日期
+            mkt_aligned = mkt_ret.reindex(stk_ret.index, method='ffill').fillna(0)
+
+            def _cum_ret(ret_df, window):
+                return (1 + ret_df).rolling(window).apply(lambda x: x.prod(), raw=True) - 1
+
+            def _mkt_cum(window):
+                return (1 + mkt_aligned).rolling(window).apply(lambda x: x.prod(), raw=True) - 1
+
+            rs_63  = _cum_ret(stk_ret, 63).sub(_mkt_cum(63),   axis=0)
+            rs_126 = _cum_ret(stk_ret, 126).sub(_mkt_cum(126), axis=0)
+            rs_252 = _cum_ret(stk_ret, 252).sub(_mkt_cum(252), axis=0)
+
+            # 加權合成：近期(63日)權重最高
+            rs_score = rs_63 * 2 + rs_126 * 1 + rs_252 * 1
+            print(f"   📈 相對強度(RS)已計算 (63日×2 + 126日×1 + 252日×1)")
+        except Exception as e:
+            print(f"   ⚠️ RS 計算失敗: {e}")
+
     # === 趨勢品質 ===
     tq_score = None
     if trend_quality:
@@ -506,6 +536,7 @@ def engineer_features(close_df, vol_df, universe_mask=None,
 
     rank_mom = _rank(mom_20)
     rank_trend = _rank(trend_bias)
+    rank_rs = _rank(rs_score) if rs_score is not None else None
     rank_res_mom = _rank(residual_mom) if residual_mom is not None else None
     rank_tq = _rank(tq_score) if tq_score is not None else None
     rank_liq = _rank(liq_stab) if liq_stab is not None else None
@@ -576,6 +607,11 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         total_score = mom_factor * 3 + trend_factor * 1
         if rank_liq is not None:
             total_score = total_score + rank_liq * 0.3
+
+        # 相對強度因子（RS Rating）：找跑贏大盤的股票
+        if rank_rs is not None and rs_weight > 0:
+            total_score = total_score + rank_rs * rs_weight
+            print(f"   📈 RS 因子已加入評分 (weight={rs_weight})")
 
         # FinLab 因子加權（opt-in，預設全部為 0 不影響 baseline）
         if rank_rsi is not None and rsi_weight > 0:
@@ -681,6 +717,7 @@ def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
 
     print(f"   ✅ ML 因子加權完成 (模型訓練 {(len(dates) - train_window) // retrain_interval} 次)")
     return total_score
+
 
 
 
