@@ -68,7 +68,7 @@ jobs:
             --tp-atr ${{ github.event.inputs.tp_atr || '4.0' }} \
             --sl-atr ${{ github.event.inputs.sl_atr || '3.0' }} \
             --hold-days ${{ github.event.inputs.hold_days || '20' }} \
-            --top-k ${{ github.event.inputs.top_k || '7' }} \
+            --top-k ${{ github.event.inputs.top_k || '10' }} \
             --gap-filter ${{ github.event.inputs.gap_filter || '1.5' }} \
             --days ${{ github.event.inputs.days || '365' }} \
             --inst-flow 1.0
@@ -172,6 +172,7 @@ jobs:
           git rebase --autostash origin/main
 
           git push origin HEAD:main
+
 
 
 
