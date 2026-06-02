@@ -461,25 +461,23 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     rs_score = None
     if market_close is not None:
         try:
-            mkt_ret = market_close.pct_change().fillna(0)
-            stk_ret = close_df.pct_change().fillna(0)
+            # 用 close / close.shift(n) 計算累計報酬，速度快、NaN 少
+            mkt_close = market_close.reindex(close_df.index, method='ffill')
 
-            # 對齊大盤日期
-            mkt_aligned = mkt_ret.reindex(stk_ret.index, method='ffill').fillna(0)
+            def _period_ret_stk(n):
+                return close_df / close_df.shift(n) - 1
 
-            def _cum_ret(ret_df, window):
-                return (1 + ret_df).rolling(window).apply(lambda x: x.prod(), raw=True) - 1
+            def _period_ret_mkt(n):
+                return mkt_close / mkt_close.shift(n) - 1
 
-            def _mkt_cum(window):
-                return (1 + mkt_aligned).rolling(window).apply(lambda x: x.prod(), raw=True) - 1
+            # 個股超額報酬 = 個股累計報酬 - 大盤累計報酬
+            # 窗口：63日(×2) + 126日(×1)，不用 252 日避免暖機太長
+            rs_63  = _period_ret_stk(63).sub(_period_ret_mkt(63),   axis=0)
+            rs_126 = _period_ret_stk(126).sub(_period_ret_mkt(126), axis=0)
 
-            rs_63  = _cum_ret(stk_ret, 63).sub(_mkt_cum(63),   axis=0)
-            rs_126 = _cum_ret(stk_ret, 126).sub(_mkt_cum(126), axis=0)
-            rs_252 = _cum_ret(stk_ret, 252).sub(_mkt_cum(252), axis=0)
-
-            # 加權合成：近期(63日)權重最高
-            rs_score = rs_63 * 2 + rs_126 * 1 + rs_252 * 1
-            print(f"   📈 相對強度(RS)已計算 (63日×2 + 126日×1 + 252日×1)")
+            # 加權合成：近期(63日)權重更高
+            rs_score = rs_63 * 2 + rs_126 * 1
+            print(f"   📈 相對強度(RS)已計算 (63日×2 + 126日×1，快速版)")
         except Exception as e:
             print(f"   ⚠️ RS 計算失敗: {e}")
 
