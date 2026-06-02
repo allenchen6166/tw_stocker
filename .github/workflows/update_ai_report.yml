@@ -23,7 +23,7 @@ on:
       top_k:
         description: '每日最多進場股票數'
         required: false
-        default: '7'
+        default: '15'
       days:
         description: '回測天數'
         required: false
@@ -68,7 +68,7 @@ jobs:
             --tp-atr ${{ github.event.inputs.tp_atr || '4.0' }} \
             --sl-atr ${{ github.event.inputs.sl_atr || '3.0' }} \
             --hold-days ${{ github.event.inputs.hold_days || '20' }} \
-            --top-k ${{ github.event.inputs.top_k || '10' }} \
+            --top-k ${{ github.event.inputs.top_k || '15' }} \
             --gap-filter ${{ github.event.inputs.gap_filter || '1.5' }} \
             --days ${{ github.event.inputs.days || '365' }} \
             --inst-flow 1.0
