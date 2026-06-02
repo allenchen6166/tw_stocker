@@ -507,7 +507,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     market_env_html = _build_market_env_section(us_signals)
 
     # 籌碼 + 新聞標注（always on）
-    all_tickers = [t for t, _, _ in selected] + [t for t, _, _ in not_selected[:20]]
+    all_tickers = [t for t, _, _ in selected] + [t for t, _, _ in not_selected[:5]]
     inst_data = {}
     news_data = {}
     try:
@@ -687,7 +687,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
             })
 
     # 顯示未被選入的候選（排名 > Top-K）
-    for ticker, score, price in not_selected[:20]:
+    for ticker, score, price in not_selected[:5]:
         status = '<span style="color:#ffab00">🟡 候選 (超出 Top-K)</span>'
         ss = stock_stats.get(ticker, None)
         hist_badge = '<span style="font-size:0.72rem; color:#555;">-</span>'
