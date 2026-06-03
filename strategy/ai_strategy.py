@@ -422,9 +422,43 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     # 1. 動態動能：今天收盤 / N 天前收盤（N 由 macro_regime 決定）
     mom_20 = close_df / close_df.shift(mom_window)
 
-    # 2. MA 乖離率：價格偏離均線的幅度
+    # 2. 加強版趨勢計算（三維度合成）
     ma_long = close_df.rolling(ma_period).mean()
+    ma_20   = close_df.rolling(20).mean()
+
+    # 2a. MA60 乖離率（原有）：價格在均線上方多少
     trend_bias = close_df / ma_long
+
+    # 2b. MA60 斜率：均線本身是否持續上升（用 10 日前後比較）
+    #     斜率 > 0 = 均線上升中（趨勢健康）
+    #     斜率 < 0 = 均線下降中（趨勢轉弱）
+    ma60_slope = (ma_long - ma_long.shift(10)) / (ma_long.shift(10) + 1e-8)
+
+    # 2c. 均線多頭排列分數：MA20 > MA60 加分，額外確認 close > MA20
+    #     完整多頭排列：close > MA20 > MA60 → 1.0
+    #     部分：close > MA60 但 MA20 < MA60 → 0.5
+    #     空頭排列：close < MA60 → 0.0
+    ma_align = (
+        ((close_df > ma_20) & (ma_20 > ma_long)).astype(float) * 1.0 +
+        ((close_df > ma_long) & ~((close_df > ma_20) & (ma_20 > ma_long))).astype(float) * 0.5
+    )
+
+    # 2d. 過熱懲罰：乖離超過 20% 時開始扣分（避免追高）
+    #     乖離 20% = 係數 1.0（無懲罰）
+    #     乖離 30% = 係數 0.7
+    #     乖離 40%+ = 係數 0.4
+    overheat = (trend_bias - 1.0).clip(lower=0)  # 只算上方乖離
+    overheat_penalty = 1.0 - (overheat - 0.20).clip(lower=0, upper=0.30) / 0.30 * 0.60
+
+    # 2e. 合成加強版趨勢分數
+    #     乖離率 × 斜率加成 × 均線排列加成 × 過熱懲罰
+    enhanced_trend = (
+        trend_bias * 0.5          # 基礎：MA60 乖離率（原有）
+        + ma60_slope * 5.0        # 斜率加成（放大讓排名有區分度）
+        + ma_align * 0.3          # 均線排列加成
+    ) * overheat_penalty          # 過熱懲罰
+
+    print(f"   📐 加強版趨勢已計算（乖離+斜率+排列+過熱懲罰）")
 
     # 3. 量能爆發比：5 日均量 / 20 日均量
     vol_surge = vol_df.rolling(5).mean() / (vol_df.rolling(20).mean() + 1e-8)
@@ -435,7 +469,7 @@ def engineer_features(close_df, vol_df, universe_mask=None,
 
     # 短期均線（多均線確認用）
     short_ma = close_df.rolling(short_ma_period).mean() if multi_ma else None
-    ma_20 = close_df.rolling(20).mean()
+    # ma_20 已在加強版趨勢計算中定義
 
     # === ATR 計算 (用於 TP/SL 與 sizing) ===
     atr_df = close_df.pct_change().abs().rolling(20).mean() * close_df
@@ -533,7 +567,7 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         return df.rank(axis=1, pct=True)
 
     rank_mom = _rank(mom_20)
-    rank_trend = _rank(trend_bias)
+    rank_trend = _rank(enhanced_trend)   # 使用加強版趨勢
     rank_rs = _rank(rs_score) if rs_score is not None else None
     rank_res_mom = _rank(residual_mom) if residual_mom is not None else None
     rank_tq = _rank(tq_score) if tq_score is not None else None
