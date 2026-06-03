@@ -166,8 +166,8 @@ class DataCache:
         cached_tickers = set(close.columns.tolist())
         missing_tickers = [t for t in tickers if t not in cached_tickers]
 
-        # 如果起始日 >= 結束日，代表快取已是最新
-        if start_date >= end_date:
+        # 如果起始日 > 結束日，代表快取已是最新（用 > 而非 >=，確保當天資料會被補抓）
+        if start_date > end_date:
             return start_date, end_date, False, missing_tickers
 
         return start_date, end_date, False, missing_tickers
