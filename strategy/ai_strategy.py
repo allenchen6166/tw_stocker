@@ -88,7 +88,7 @@ def fetch_panel_data(tickers, days=365, start_date=None, end_date=None):
             tickers, end_str, full_days=days)
 
         # 判斷是否需要下載
-        need_download = needs_full or (fetch_start < fetch_end) or bool(missing_tickers)
+        need_download = needs_full or (fetch_start <= fetch_end) or bool(missing_tickers)
 
         if need_download:
             # 首次或有新資料/新股票需要下載
