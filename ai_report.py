@@ -692,7 +692,6 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         inst_badge = (
             f'<td><span style="font-size:0.72rem;">{idata.get("label", "⚪")}'
             f'<br><span style="color:{inst_color}">{inst_change:+.1f}%</span></span></td>'
-            f'<td><span style="font-size:0.72rem;">{ndata.get("label", "⚪")}</span></td>'
         )
 
         trading_plan_rows += (
