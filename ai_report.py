@@ -348,6 +348,100 @@ def _build_market_env_section(us_signals):
     except Exception:
         return ''
 
+def _compute_open_prediction(us_signals, ticker, close_df, idata, sm):
+    """
+    根據美股隔夜走勢 + 個股狀況，預測明日開盤建議。
+
+    Returns
+    -------
+    dict with keys: action, color, detail, entry_price
+    """
+    try:
+        if us_signals is None or us_signals.empty:
+            return None
+
+        latest_us = us_signals.iloc[-1]
+        spy_ret = float(us_signals['spy_close'].pct_change().iloc[-1])
+        vix = float(latest_us.get('vix_close', 20))
+        macro = float(latest_us.get('macro_regime', 0.5))
+        sox_trend = int(latest_us.get('sox_trend', 1))
+
+        price = close_df[ticker].iloc[-1] if ticker in close_df.columns else None
+        if price is None or pd.isna(price):
+            return None
+
+        mom_5d = (close_df[ticker].iloc[-1] / close_df[ticker].iloc[-6] - 1) * 100 \
+            if len(close_df[ticker].dropna()) >= 6 else 0
+        inst_change = idata.get('change', 0.0)
+
+        # ── 全面觀望條件 ──
+        if vix > 25 or macro <= 0.1:
+            return {
+                'action': '⚫ 全面觀望',
+                'color': '#888',
+                'detail': f'VIX={vix:.1f} 恐慌偏高，市場不穩，暫緩進場',
+                'entry_price': None,
+            }
+
+        # ── 美股大漲（開盤可能跳高）──
+        if spy_ret > 0.015:
+            if mom_5d > 10:
+                action = '🔴 開盤高＋近期漲多，建議等回再買'
+                color = '#ff6666'
+                entry = round(price * 0.97, 1)
+                detail = f'SPY +{spy_ret*100:.1f}%，近5日已漲 {mom_5d:.1f}%，建議掛單 ≤ {entry}'
+            else:
+                action = '🟡 開盤高，可小量試單'
+                color = '#ffab00'
+                entry = round(price * 1.005, 1)
+                detail = f'SPY +{spy_ret*100:.1f}%，可於開盤附近 {entry} 小量進場'
+
+        # ── 美股大跌（開盤可能跳低）──
+        elif spy_ret < -0.015:
+            if inst_change > 1.0 and macro >= 0.4:
+                action = '🟢 開盤低＋法人買超，折價買進機會'
+                color = '#00cc66'
+                entry = round(price * 0.97, 1)
+                detail = f'SPY {spy_ret*100:.1f}%，但法人持續買超 +{inst_change:.1f}%，建議掛 {entry} 附近'
+            elif macro >= 0.4:
+                action = '🟢 開盤低，折價進場機會'
+                color = '#00aaff'
+                entry = round(price * 0.97, 1)
+                detail = f'SPY {spy_ret*100:.1f}%，預計開低，建議掛單 ≤ {entry}'
+            else:
+                action = '🟡 開盤低但大盤偏弱，謹慎小量'
+                color = '#ffab00'
+                entry = round(price * 0.96, 1)
+                detail = f'SPY {spy_ret*100:.1f}%，大盤偏弱，可掛 {entry} 以下再考慮'
+
+        # ── 平開（±1.5% 以內）──
+        else:
+            if inst_change > 2.0:
+                action = '🟢 平開＋法人大買，按計畫進場'
+                color = '#00cc66'
+                entry = round(price, 1)
+                detail = f'SPY {spy_ret*100:+.1f}%，法人強力買超 +{inst_change:.1f}%，開盤附近進場'
+            elif mom_5d > 8:
+                action = '🟡 平開但近期漲多，可等小回'
+                color = '#ffab00'
+                entry = round(price * 0.985, 1)
+                detail = f'近5日漲 {mom_5d:.1f}%，建議掛 {entry} 附近進場較安全'
+            else:
+                action = '🟢 平開，按計畫正常進場'
+                color = '#aaaaaa'
+                entry = round(price, 1)
+                detail = f'SPY {spy_ret*100:+.1f}%，市場平穩，開盤附近 {entry} 進場'
+
+        return {
+            'action': action,
+            'color': color,
+            'detail': detail,
+            'entry_price': entry,
+        }
+    except Exception:
+        return None
+
+
 def generate_report(trades_df, equity_df, total_score, close_df, config,
                     metrics, benchmark_equity=None, ew_equity=None,
                     benchmark2_equity=None,
@@ -651,12 +745,26 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
             f'</div>'
         )
 
+        # 明日開盤建議
+        open_pred = _compute_open_prediction(us_signals, ticker, close_df, idata, sm)
+        if open_pred:
+            open_html = (
+                f'<div style="margin-top:6px;padding:6px 8px;border-radius:5px;'
+                f'border-left:3px solid {open_pred["color"]};background:#1a1a2e;'
+                f'font-size:0.75rem;">'
+                f'<b style="color:{open_pred["color"]};">{open_pred["action"]}</b><br>'
+                f'<span style="color:#aaa;">{open_pred["detail"]}</span>'
+                f'</div>'
+            )
+        else:
+            open_html = ''
+
         trading_plan_rows += (
             f'<tr>'
             f'<td><b>{ticker}</b><br><span style="font-size:0.78rem;color:#aaa;">{stock_name_map.get(ticker, "") if stock_name_map else ""}</span></td>'
             f'<td>{score:.2f}<br>{factor_breakdown}</td>'
             f'<td>{price:.1f}<br>{metrics_html}</td>'
-            f'<td>{status}</td><td>{plan}</td>'
+            f'<td>{status}{open_html}</td><td>{plan}</td>'
             f'<td>{hist_badge}</td>{inst_badge}</tr>\n'
         )
         if order_valid:
@@ -1502,7 +1610,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
                 <th>股票代號</th>
                 <th>AI 評分</th>
                 <th>今日收盤</th>
-                <th>操作狀態</th>
+                <th>操作狀態 / 明日開盤建議</th>
                 <th>🎯 區間執行計畫</th>
                 <th>📊 歷史績效</th>
                 <th>🏛️ 籌碼</th>
