@@ -45,7 +45,6 @@ from strategy.risk_metrics import compute_risk_metrics, format_metrics_summary
 from strategy.benchmark import fetch_benchmark, equal_weight_benchmark, compute_excess_return
 from strategy.institutional_flow import build_inst_flow_df, build_inst_score_from_rankings, get_inst_flow_for_signals, fetch_inst_rankings
 from strategy.us_market import fetch_us_signals
-from strategy.news_sentiment import get_news_sentiment_for_signals
 
 # 嘗試載入 exchange_calendars
 try:
@@ -509,15 +508,10 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     # 籌碼 + 新聞標注（always on）
     all_tickers = [t for t, _, _ in selected] + [t for t, _, _ in not_selected[:5]]
     inst_data = {}
-    news_data = {}
     try:
         inst_data = get_inst_flow_for_signals(all_tickers)
     except Exception:
         inst_data = {}
-    try:
-        news_data = get_news_sentiment_for_signals(all_tickers)
-    except Exception:
-        news_data = {}
 
     # 籌碼動態 HTML section
     inst_section_html = _build_inst_section()
@@ -608,15 +602,12 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 
         # 籌碼 + 新聞標注
         idata = inst_data.get(ticker, {})
-        ndata = news_data.get(ticker, {})
         inst_change = idata.get('change', 0.0)
         inst_label = idata.get('label', '⚪ 無資料')
-        news_label = ndata.get('label', '⚪ 中性')
         inst_color = '#00ff00' if inst_change > 2 else '#ff4444' if inst_change < -2 else '#ffab00' if abs(inst_change) > 0.5 else '#888'
         inst_badge = (
             f'<td><span style="font-size:0.78rem;">{inst_label}'
             f'<br><span style="color:{inst_color}; font-weight:bold;">{inst_change:+.1f}%</span></span></td>'
-            f'<td><span style="font-size:0.78rem;">{news_label}</span></td>'
         )
 
         # 個股關鍵指標
@@ -696,7 +687,6 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
             hist_badge = f'<span style="font-size:0.72rem; color:#888;">勝率 <b style="color:{wr_color}">{ss["win_rate"]:.0f}%</b></span>'
 
         idata = inst_data.get(ticker, {})
-        ndata = news_data.get(ticker, {})
         inst_change = idata.get('change', 0.0)
         inst_color = '#00ff00' if inst_change > 2 else '#ff4444' if inst_change < -2 else '#888'
         inst_badge = (
@@ -1517,7 +1507,6 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
                 <th>🎯 區間執行計畫</th>
                 <th>📊 歷史績效</th>
                 <th>🏛️ 籌碼</th>
-                <th>📰 新聞</th>
             </tr>
         </thead>
         <tbody>
@@ -2243,6 +2232,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
