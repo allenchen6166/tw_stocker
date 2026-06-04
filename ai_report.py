@@ -39,6 +39,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from strategy.ai_strategy import fetch_panel_data, engineer_features, build_liquid_universe, fetch_dynamic_top_tickers
+from strategy.pool_manager import load_pool, pool_needs_update, update_pool
 from strategy.event_backtest import EventDrivenBacktester
 from strategy.evaluation import slice_evaluation_window
 from strategy.risk_metrics import compute_risk_metrics, format_metrics_summary
@@ -2125,14 +2126,16 @@ def main():
         tickers = args.tickers if args.tickers else DEFAULT_TICKERS
         use_dynamic = False
     else:
-        # 動態篩選：用 FinMind 即時抓成交額 Top-50
-        print("🔍 動態篩選股池（成交額 Top-50）...")
-        dynamic_tickers = fetch_dynamic_top_tickers(top_n=50, days=30, verbose=True)
-        if dynamic_tickers and len(dynamic_tickers) >= 20:
-            tickers = dynamic_tickers
-            print(f"   ✅ 動態選出 {len(tickers)} 檔")
+        # 動態雙層篩選：
+        # 第一層（每週更新）：從全市場取成交額 Top-150 存入 pool_cache.csv
+        # 第二層（每日執行）：在 Top-150 中用 Universe 動態選 Top-60 評分
+        print("🔍 載入動態股池...")
+        pool_tickers = load_pool(verbose=True)
+        if pool_tickers and len(pool_tickers) >= 30:
+            tickers = pool_tickers
+            print(f"   ✅ 動態股池：{len(tickers)} 檔")
         else:
-            print("   ⚠️ 動態篩選失敗，fallback 到預設股池")
+            print("   ⚠️ 動態股池失敗，fallback 到預設股池")
             tickers = EXTENDED_TICKERS
         use_dynamic = True
 

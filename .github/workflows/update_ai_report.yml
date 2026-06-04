@@ -55,6 +55,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Update Dynamic Stock Pool (weekly on Monday)
+        env:
+          FINMIND_TOKEN: ${{ secrets.FINMIND_TOKEN }}
+        run: |
+          python -c "
+          import os, sys
+          sys.path.insert(0, '.')
+          from strategy.pool_manager import pool_needs_update, update_pool
+          if pool_needs_update():
+              print('股池需要更新，執行中...')
+              update_pool(verbose=True)
+          else:
+              print('股池仍在有效期內，跳過更新')
+          "
+
       - name: Run AI Quant Pipeline v8.5
         if: github.event.schedule != '0 10 1 * *'
         env:
@@ -95,6 +110,7 @@ jobs:
           git add stock_report.html backtest_chart.png paper_trading.html paper_equity.json || true
           git add -u artifacts || true
           git add data/*.parquet 2>/dev/null || true
+          git add data/pool_cache.csv 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes"
