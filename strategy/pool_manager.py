@@ -52,79 +52,161 @@ def pool_needs_update():
         return True
 
 
-def update_pool(verbose=True):
+def _update_pool_from_twse(verbose=True):
     """
-    從 FinMind 取得全市場成交額，更新動態股池。
-
-    流程：
-    1. 取得全市場近 5 個交易日成交資料（1 個請求）
-    2. 計算平均日成交額
-    3. 過濾普通股（4 碼代號）
-    4. 排序取 Top-POOL_SIZE
-    5. 存入 pool_cache.csv
-
-    Returns
-    -------
-    list[str] or None
+    使用 TWSE 官方 API 取得全市場成交額排名（免費、無需帳號）。
+    抓取當日或最近交易日的「成交量前 20 名」及全市場個股資料。
     """
-    fm = _get_finmind()
-    if fm is None:
-        if verbose:
-            print("   ⚠️ FinMind 未安裝，無法更新股池")
-        return None
-
-    end_dt = pd.Timestamp.today()
-    start_dt = end_dt - timedelta(days=10)
+    import urllib.request, json, ssl
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
 
     if verbose:
-        print(f"🔄 更新動態股池（全市場成交額 Top-{POOL_SIZE}）...")
+        print(f"🔄 從 TWSE 官方 API 更新動態股池（全市場成交額 Top-{POOL_SIZE}）...")
 
     try:
-        df = fm.taiwan_stock_daily(
-            start_date=start_dt.strftime('%Y-%m-%d'),
-            end_date=end_dt.strftime('%Y-%m-%d')
-        )
-        if df is None or df.empty:
+        # 抓取 TWSE 上市股票當日成交資訊（含成交額）
+        from datetime import date
+        today = date.today().strftime('%Y%m%d')
+        url = f"https://www.twse.com.tw/exchangeReport/MI_INDEX?response=json&date={today}&type=ALLBUT0999"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+
+        if data.get('stat') != 'OK' or 'data9' not in data:
             if verbose:
-                print("   ⚠️ FinMind 無法取得資料")
+                print("   ⚠️ TWSE API 無資料（可能非交易日），改用快取資料建池")
             return None
 
-        # 只保留 4 碼普通股
-        df = df[df['stock_id'].str.match(r'^\d{4}$')].copy()
+        rows = data['data9']
+        records = []
+        for row in rows:
+            try:
+                code = row[0].strip()
+                if not (len(code) == 4 and code.isdigit()):
+                    continue
+                turnover_str = row[4].replace(',', '') if len(row) > 4 else '0'
+                turnover = float(turnover_str) if turnover_str else 0
+                records.append({'stock_id': code, 'avg_turnover': turnover})
+            except Exception:
+                continue
 
-        # 計算成交額
-        df['turnover'] = df['close'] * df['Trading_Volume']
+        if not records:
+            return None
 
-        # 取最近一個交易日的數據
-        latest_date = df['date'].max()
-        df_latest = df[df['date'] == latest_date].copy()
-        df_latest = df_latest[df_latest['turnover'] > 0]
+        df = pd.DataFrame(records)
+        df = df[df['avg_turnover'] > 0].sort_values('avg_turnover', ascending=False).head(POOL_SIZE)
+        tickers = df['stock_id'].tolist()
 
-        # 排序取 Top-N
-        df_top = df_latest.sort_values('turnover', ascending=False).head(POOL_SIZE)
-
-        # 建立快取 DataFrame
         pool_df = pd.DataFrame({
-            'stock_id': df_top['stock_id'].values,
-            'avg_turnover': df_top['turnover'].values,
-            'rank': range(1, len(df_top) + 1),
+            'stock_id': df['stock_id'].values,
+            'avg_turnover': df['avg_turnover'].values,
+            'rank': range(1, len(df) + 1),
             'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         })
-
-        # 儲存
         POOL_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
         pool_df.to_csv(POOL_CACHE_PATH, index=False)
 
-        tickers = pool_df['stock_id'].tolist()
         if verbose:
-            print(f"   ✅ 股池更新完成：{len(tickers)} 檔（基準日：{latest_date}）")
+            print(f"   ✅ TWSE 股池更新完成：{len(tickers)} 檔")
             print(f"   📌 前 10 名：{tickers[:10]}")
         return tickers
 
     except Exception as e:
         if verbose:
-            print(f"   ⚠️ 股池更新失敗: {e}")
+            print(f"   ⚠️ TWSE API 失敗: {e}")
         return None
+
+
+def _update_pool_from_cache(verbose=True):
+    """
+    從現有 OHLCV 快取計算成交額，建立股池（離線 fallback）。
+    """
+    try:
+        cache_dir = POOL_CACHE_PATH.parent
+        close_path = cache_dir / 'cache_close.parquet'
+        vol_path   = cache_dir / 'cache_volume.parquet'
+        if not close_path.exists() or not vol_path.exists():
+            return None
+
+        close = pd.read_parquet(close_path)
+        vol   = pd.read_parquet(vol_path)
+
+        # 最近 20 日平均成交額
+        turnover = (close * vol).rolling(20).mean().iloc[-1].dropna()
+        turnover = turnover[turnover > 0].sort_values(ascending=False)
+
+        tickers = turnover.head(POOL_SIZE).index.tolist()
+        pool_df = pd.DataFrame({
+            'stock_id': tickers,
+            'avg_turnover': turnover.head(POOL_SIZE).values,
+            'rank': range(1, len(tickers) + 1),
+            'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        POOL_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        pool_df.to_csv(POOL_CACHE_PATH, index=False)
+
+        if verbose:
+            print(f"   ✅ 從快取建立股池：{len(tickers)} 檔")
+        return tickers
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️ 快取建池失敗: {e}")
+        return None
+
+
+def update_pool(verbose=True):
+    """
+    更新動態股池。優先順序：TWSE 官方 API → FinMind → 現有快取
+
+    Returns
+    -------
+    list[str] or None
+    """
+    # 方法一：TWSE 官方 API（免費、最即時）
+    result = _update_pool_from_twse(verbose=verbose)
+    if result:
+        return result
+
+    # 方法二：FinMind（需帳號）
+    fm = _get_finmind()
+    if fm is not None:
+        try:
+            if verbose:
+                print(f"🔄 嘗試 FinMind 方式更新股池...")
+            end_dt = pd.Timestamp.today()
+            start_dt = end_dt - timedelta(days=5)
+            df = fm.taiwan_stock_daily(
+                start_date=start_dt.strftime('%Y-%m-%d'),
+                end_date=end_dt.strftime('%Y-%m-%d')
+            )
+            if df is not None and not df.empty:
+                df = df[df['stock_id'].str.match(r'^\d{4}$')].copy()
+                df['turnover'] = df['close'] * df['Trading_Volume']
+                latest = df['date'].max()
+                df_l = df[df['date'] == latest][df['turnover'] > 0]
+                df_top = df_l.sort_values('turnover', ascending=False).head(POOL_SIZE)
+                tickers = df_top['stock_id'].tolist()
+                pool_df = pd.DataFrame({
+                    'stock_id': tickers,
+                    'avg_turnover': df_top['turnover'].values,
+                    'rank': range(1, len(tickers)+1),
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                })
+                POOL_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+                pool_df.to_csv(POOL_CACHE_PATH, index=False)
+                if verbose:
+                    print(f"   ✅ FinMind 股池更新完成：{len(tickers)} 檔")
+                return tickers
+        except Exception as e:
+            if verbose:
+                print(f"   ⚠️ FinMind 失敗: {e}")
+
+    # 方法三：從現有 OHLCV 快取計算
+    if verbose:
+        print("   📦 改用本地快取建立股池...")
+    return _update_pool_from_cache(verbose=verbose)
 
 
 def load_pool(verbose=True):
