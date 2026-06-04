@@ -432,7 +432,8 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     # 2b. MA60 斜率：均線本身是否持續上升（用 10 日前後比較）
     #     斜率 > 0 = 均線上升中（趨勢健康）
     #     斜率 < 0 = 均線下降中（趨勢轉弱）
-    ma60_slope = (ma_long - ma_long.shift(10)) / (ma_long.shift(10) + 1e-8)
+    #     ⚠️ 加入截尾(clip)避免極端值扭曲排名（±3% per 10 days）
+    ma60_slope = ((ma_long - ma_long.shift(10)) / (ma_long.shift(10) + 1e-8)).clip(-0.03, 0.03)
 
     # 2c. 均線多頭排列分數：MA20 > MA60 加分，額外確認 close > MA20
     #     完整多頭排列：close > MA20 > MA60 → 1.0
@@ -636,14 +637,25 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     else:
         mom_factor = rank_res_mom if rank_res_mom is not None else rank_mom
         trend_factor = rank_tq if rank_tq is not None else rank_trend
-        total_score = mom_factor * 3 + trend_factor * 1
+
+        # === 修正版評分公式 ===
+        # 原問題：動能×3 + RS×1.5 + 趨勢×1 → 三個因子都在衡量漲幅，重疊嚴重
+        # 修正：降低動能權重，加入量能因子，讓選股更多元
+        #
+        # 新公式：動能×2 + 趨勢×1.5 + RS×1 + 量能×0.5 + 法人×1
+        rank_vol_factor = _rank(vol_surge)
+        total_score = mom_factor * 2 + trend_factor * 1.5
+        total_score = total_score + rank_vol_factor * 0.5   # 量能因子加入
+        print(f"   📊 評分公式：動能×2 + 趨勢×1.5 + 量能×0.5")
+
         if rank_liq is not None:
             total_score = total_score + rank_liq * 0.3
 
-        # 相對強度因子（RS Rating）：找跑贏大盤的股票
+        # 相對強度因子（RS Rating）：找跑贏大盤的股票（權重從1.5降至1.0）
         if rank_rs is not None and rs_weight > 0:
-            total_score = total_score + rank_rs * rs_weight
-            print(f"   📈 RS 因子已加入評分 (weight={rs_weight})")
+            rs_w = min(rs_weight, 1.0)   # 最高 1.0，避免與動能過度重疊
+            total_score = total_score + rank_rs * rs_w
+            print(f"   📈 RS 因子已加入評分 (weight={rs_w})")
 
         # FinLab 因子加權（opt-in，預設全部為 0 不影響 baseline）
         if rank_rsi is not None and rsi_weight > 0:
