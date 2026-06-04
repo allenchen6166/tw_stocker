@@ -464,6 +464,31 @@ def engineer_features(close_df, vol_df, universe_mask=None,
     # 3. 量能爆發比：5 日均量 / 20 日均量
     vol_surge = vol_df.rolling(5).mean() / (vol_df.rolling(20).mean() + 1e-8)
 
+    # 3b. 均線突破 + 量能確認因子
+    #   條件一：價格剛突破 MA5 或 MA10（前一日低於，今日高於）
+    #   條件二：突破當日量能 > 20日均量的 1.5 倍
+    #   分數：雙確認突破 = 1.0，單條件 = 0.5，未突破 = 0.0
+    ma_5  = close_df.rolling(5).mean()
+    ma_10 = close_df.rolling(10).mean()
+    vol_20avg = vol_df.rolling(20).mean()
+
+    # 是否剛突破（今日 > MA，昨日 <= MA）
+    break_ma5  = (close_df > ma_5)  & (close_df.shift(1) <= ma_5.shift(1))
+    break_ma10 = (close_df > ma_10) & (close_df.shift(1) <= ma_10.shift(1))
+    any_break  = break_ma5 | break_ma10
+
+    # 量能是否放大（今日量 > 20日均量 × 1.5）
+    vol_confirm = vol_df > (vol_20avg * 1.5)
+
+    # 突破評分
+    breakout_score = (
+        (any_break & vol_confirm).astype(float) * 1.0   # 突破 + 量能：滿分
+        + (any_break & ~vol_confirm).astype(float) * 0.5 # 突破但量能不足：半分
+    )
+    # 突破訊號持續 3 日（讓信號不只一天）
+    breakout_score = breakout_score.rolling(3).max().fillna(0)
+    print(f"   🚀 均線突破因子已計算 (MA5/MA10 + 量能確認)")
+
     # 4. 穩定度：波動率的倒數（越穩定越好）
     volatility = close_df.pct_change().rolling(20).std()
     stability = 1 / (volatility + 1e-8)
@@ -643,10 +668,12 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         # 修正：降低動能權重，加入量能因子，讓選股更多元
         #
         # 新公式：動能×2 + 趨勢×1.5 + RS×1 + 量能×0.5 + 法人×1
-        rank_vol_factor = _rank(vol_surge)
+        rank_vol_factor  = _rank(vol_surge)
+        rank_breakout_sig = _rank(breakout_score)   # 突破因子排名
         total_score = mom_factor * 2 + trend_factor * 1.5
-        total_score = total_score + rank_vol_factor * 0.5   # 量能因子加入
-        print(f"   📊 評分公式：動能×2 + 趨勢×1.5 + 量能×0.5")
+        total_score = total_score + rank_vol_factor * 0.5    # 量能因子
+        total_score = total_score + rank_breakout_sig * 1.0  # 突破因子（×1）
+        print(f"   📊 評分公式：動能×2 + 趨勢×1.5 + 量能×0.5 + 突破×1")
 
         if rank_liq is not None:
             total_score = total_score + rank_liq * 0.3
@@ -678,12 +705,23 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         _rvf = rank_vol_factor
     except NameError:
         _rvf = _rank(vol_surge)
+    try:
+        _rbs = rank_breakout_sig
+    except NameError:
+        _rbs = None
+
     factor_ranks = {
-        'mom':   (rank_res_mom if rank_res_mom is not None else rank_mom),
-        'trend': (rank_tq if rank_tq is not None else rank_trend),
-        'vol':   _rvf,
-        'rs':    rank_rs,
-        'inst':  rank_inst,
+        'mom':      (rank_res_mom if rank_res_mom is not None else rank_mom),
+        'trend':    (rank_tq if rank_tq is not None else rank_trend),
+        'vol':      _rvf,
+        'rs':       rank_rs,
+        'inst':     rank_inst,
+        'breakout': _rbs,
+        # 突破原始信號（用於報表顯示突破清單）
+        'breakout_raw':   breakout_score,
+        'break_ma5_raw':  break_ma5,
+        'break_ma10_raw': break_ma10,
+        'vol_confirm_raw': vol_confirm,
     }
     return total_score, ma_long, atr_df, short_ma, factor_ranks
 

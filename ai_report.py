@@ -291,6 +291,82 @@ def _factor_bar(value_pct, color='#00aaff', width=80):
     )
 
 
+def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None):
+    """
+    建立均線突破雷達區塊：列出今日剛突破 MA5 或 MA10 且量能放大的股票。
+    """
+    try:
+        if factor_ranks is None:
+            return ''
+        breakout_raw  = factor_ranks.get('breakout_raw')
+        break_ma5     = factor_ranks.get('break_ma5_raw')
+        break_ma10    = factor_ranks.get('break_ma10_raw')
+        vol_confirm   = factor_ranks.get('vol_confirm_raw')
+
+        if breakout_raw is None:
+            return ''
+
+        # 找出今日有突破訊號的股票
+        latest = breakout_raw.iloc[-1]
+        b5  = break_ma5.iloc[-1]  if break_ma5  is not None else pd.Series(False, index=latest.index)
+        b10 = break_ma10.iloc[-1] if break_ma10 is not None else pd.Series(False, index=latest.index)
+        vc  = vol_confirm.iloc[-1] if vol_confirm is not None else pd.Series(False, index=latest.index)
+
+        # 今日有突破的股票
+        broke = latest[latest > 0].sort_values(ascending=False)
+        if broke.empty:
+            return '''<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
+  <h3 style="margin:0;font-size:1rem;color:#eee;">📡 均線突破雷達</h3>
+  <p style="color:#555;font-size:0.85rem;margin-top:0.5rem;">今日無明顯均線突破訊號</p>
+</div>'''
+
+        rows = ''
+        for ticker in broke.index[:20]:  # 最多顯示 20 檔
+            if ticker not in close_df.columns:
+                continue
+            price = close_df[ticker].iloc[-1]
+            name = (stock_name_map or {}).get(str(ticker), '')
+
+            # 突破類型
+            types = []
+            if b5.get(ticker, False):  types.append('MA5')
+            if b10.get(ticker, False): types.append('MA10')
+            type_str = ' + '.join(types) if types else '近3日突破'
+
+            # 量能狀態
+            vol_ok = vc.get(ticker, False)
+            vol_badge = '<span style="color:#00ff00">✅ 量能放大</span>' if vol_ok else '<span style="color:#ffab00">⚠️ 量能不足</span>'
+
+            # 突破強度
+            score = float(broke[ticker])
+            strength = '🔥 強力突破' if score >= 1.0 else '📈 溫和突破'
+            color = '#00ff00' if score >= 1.0 else '#ffab00'
+
+            rows += f'''<tr>
+              <td><b>{ticker}</b><br><span style="font-size:0.75rem;color:#aaa;">{name}</span></td>
+              <td style="color:{color}">{strength}</td>
+              <td><span style="color:#58a6ff">{type_str}</span></td>
+              <td>{price:.1f}</td>
+              <td>{vol_badge}</td>
+            </tr>'''
+
+        return f'''<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
+  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">📡 均線突破雷達 <span style="font-size:0.8rem;color:#555;">（今日剛突破 MA5/MA10 + 量能確認）</span></h3>
+  <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+    <thead><tr style="color:#8b949e;border-bottom:1px solid #333;">
+      <th style="text-align:left;padding:4px 8px">股票</th>
+      <th style="text-align:left;padding:4px 8px">突破強度</th>
+      <th style="text-align:left;padding:4px 8px">突破均線</th>
+      <th style="text-align:left;padding:4px 8px">收盤價</th>
+      <th style="text-align:left;padding:4px 8px">量能</th>
+    </tr></thead>
+    <tbody>{rows}</tbody>
+  </table>
+</div>'''
+    except Exception as e:
+        return f'<!-- breakout section error: {e} -->'
+
+
 def _build_market_env_section(us_signals):
     """建立市場環境區塊 HTML"""
     if us_signals is None or us_signals.empty:
@@ -611,6 +687,9 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
 
     # 籌碼動態 HTML section
     inst_section_html = _build_inst_section()
+
+    # === 建立均線突破雷達區塊 ===
+    breakout_html = _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map)
 
     # 從 factor_ranks 取得各因子的 rank 矩陣（與實際評分一致）
     _fr = factor_ranks or {}
@@ -1606,6 +1685,7 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     </div>
 
     {market_env_html}
+    {breakout_html}
     <h2>🚀 今日 AI 交易執行單</h2>
     <p class="section-note">
         信號基於昨日收盤產生，建議於明日開盤價附近掛單進場。
