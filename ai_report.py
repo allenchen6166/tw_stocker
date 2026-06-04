@@ -447,7 +447,8 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
                     metrics, benchmark_equity=None, ew_equity=None,
                     benchmark2_equity=None,
                     high_df=None, low_df=None, vol_df=None,
-                    show_inst=True, us_signals=None, stock_name_map=None):
+                    show_inst=True, us_signals=None, stock_name_map=None,
+                    factor_ranks=None):
     """
     產出 AI 交易計畫 HTML 報表與資金曲線圖（v2 完整版）。
 
@@ -611,24 +612,22 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     # 籌碼動態 HTML section
     inst_section_html = _build_inst_section()
 
-    # 預先計算因子矩陣（迴圈外，避免重複計算）
-    try:
-        _mom_matrix   = close_df / close_df.shift(20)
-        _trend_matrix = close_df / close_df.rolling(60).mean()
-    except Exception:
-        _mom_matrix   = None
-        _trend_matrix = None
+    # 從 factor_ranks 取得各因子的 rank 矩陣（與實際評分一致）
+    _fr = factor_ranks or {}
+    _mom_rank_matrix   = _fr.get('mom')    # 實際使用的動能 rank（動態窗口）
+    _trend_rank_matrix = _fr.get('trend')  # 實際使用的趨勢 rank（加強版）
+    _vol_rank_matrix   = _fr.get('vol')    # 量能 rank
+    _rs_rank_matrix    = _fr.get('rs')     # RS rank
+    _inst_rank_matrix  = _fr.get('inst')   # 法人 rank
 
-    def _get_rank_pct_fast(matrix, ticker):
-        if matrix is None or ticker not in matrix.columns:
+    def _get_rank_pct_fast(rank_matrix, ticker):
+        """從已計算好的 rank 矩陣讀取最新百分位（0~100）"""
+        if rank_matrix is None or ticker not in rank_matrix.columns:
             return 50.0
         try:
-            row = matrix.iloc[-1]
-            valid = row.dropna()
-            if valid.empty: return 50.0
-            val = row.get(ticker, np.nan)
+            val = float(rank_matrix[ticker].iloc[-1])
             if pd.isna(val): return 50.0
-            return float((valid < val).sum() / len(valid) * 100)
+            return val * 100   # rank 矩陣值是 0~1，轉成 0~100
         except Exception:
             return 50.0
 
@@ -715,16 +714,23 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
         mom_color = '#00ff00' if (sm.get('mom_20') or 0) > 0 else '#ff4444'
         vol_color = '#ffab00' if (sm.get('vol_ratio') or 1) > 2 else '#aaa'
 
-        # 因子分解條（動能 + 趨勢 + 法人）
+        # 因子分解條（與實際評分公式一致：動能×2 + 趨勢×1.5 + 量能×0.5 + RS×1 + 法人×1）
         try:
-            mom_pct   = _get_rank_pct_fast(_mom_matrix, ticker)
-            trend_pct = _get_rank_pct_fast(_trend_matrix, ticker)
-            inst_pct  = 50 + min(50, max(-50, idata.get('change', 0) * 10))
+            mom_pct   = _get_rank_pct_fast(_mom_rank_matrix,   ticker)
+            trend_pct = _get_rank_pct_fast(_trend_rank_matrix, ticker)
+            vol_pct   = _get_rank_pct_fast(_vol_rank_matrix,   ticker)
+            rs_pct    = _get_rank_pct_fast(_rs_rank_matrix,    ticker)
+            # 法人：從 rank 矩陣讀，若無則用 inst change 估算
+            inst_pct  = _get_rank_pct_fast(_inst_rank_matrix, ticker)
+            if inst_pct == 50.0 and idata.get('change', 0) != 0:
+                inst_pct = 50 + min(50, max(-50, idata.get('change', 0) * 10))
             factor_breakdown = (
                 f'<div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">'
-                f'動能 {_factor_bar(mom_pct, "#00aaff")}<br>'
-                f'趨勢 {_factor_bar(trend_pct, "#00ddaa")}<br>'
-                f'法人 {_factor_bar(inst_pct, "#ffaa00")}'
+                f'動能×2 {_factor_bar(mom_pct, "#00aaff")}<br>'
+                f'趨勢×1.5 {_factor_bar(trend_pct, "#00ddaa")}<br>'
+                f'量能×0.5 {_factor_bar(vol_pct, "#aa88ff")}<br>'
+                f'RS×1 {_factor_bar(rs_pct, "#ff9944")}<br>'
+                f'法人×1 {_factor_bar(inst_pct, "#ffaa00")}'
                 f'</div>'
             )
         except Exception:
@@ -2204,7 +2210,7 @@ def main():
         print(f"   ⚠️ 美股信號下載失敗，使用固定窗口: {e}")
 
     # Phase 3: 特徵工程
-    total_score, ma_60, atr_df, short_ma = engineer_features(
+    total_score, ma_60, atr_df, short_ma, factor_ranks = engineer_features(
         close_df, vol_df, universe_mask,
         ma_period=args.ma_period,
         multi_ma=args.multi_ma,
@@ -2336,7 +2342,8 @@ def main():
                     high_df=high_df, low_df=low_df, vol_df=vol_df,
                     show_inst=args.show_inst,
                     us_signals=us_signals,
-                    stock_name_map=stock_name_map)
+                    stock_name_map=stock_name_map,
+                    factor_ranks=factor_ranks)
     print("\n🚀 全部完成！請打開 stock_report.html 查看結果。")
 
 

@@ -672,7 +672,20 @@ def engineer_features(close_df, vol_df, universe_mask=None,
         total_score = total_score + rank_inst * inst_flow_weight
 
     print("   ✅ 特徵計算完成")
-    return total_score, ma_long, atr_df, short_ma
+
+    # 回傳各因子 rank 矩陣，供報表顯示用（與實際評分一致）
+    try:
+        _rvf = rank_vol_factor
+    except NameError:
+        _rvf = _rank(vol_surge)
+    factor_ranks = {
+        'mom':   (rank_res_mom if rank_res_mom is not None else rank_mom),
+        'trend': (rank_tq if rank_tq is not None else rank_trend),
+        'vol':   _rvf,
+        'rs':    rank_rs,
+        'inst':  rank_inst,
+    }
+    return total_score, ma_long, atr_df, short_ma, factor_ranks
 
 
 def _ml_factor_score(close_df, rank_mom, rank_trend, rank_vol, rank_stab,
