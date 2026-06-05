@@ -372,7 +372,12 @@ def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None,
               <td style="padding:8px;">{vol_badge}</td>
               <td style="padding:8px;min-width:280px;">
                 <details>
-                  <summary style="cursor:pointer;color:{action_color};font-weight:bold;font-size:0.85rem;">{action_short}</summary>
+                  <summary style="cursor:pointer;color:{action_color};font-weight:bold;font-size:0.85rem;">
+                    {action_short}
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:{action_color}">{advice['score']:+d if advice else 0}</b>）
+                    </span>
+                  </summary>
                   <div style="margin-top:6px;">{advice_html}</div>
                 </details>
               </td>
