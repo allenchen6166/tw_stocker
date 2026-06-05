@@ -291,10 +291,17 @@ def _factor_bar(value_pct, color='#00aaff', width=80):
     )
 
 
-def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None):
+def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None, high_df=None, low_df=None):
     """
-    建立均線突破雷達區塊：列出今日剛突破 MA5 或 MA10 且量能放大的股票。
+    建立均線突破雷達區塊：列出今日剛突破 MA5 或 MA10 且量能放大的股票，
+    並附上 AI 技術分析投資建議。
     """
+    try:
+        from strategy.advisor import analyze_stock, render_advice_html
+    except ImportError:
+        render_advice_html = lambda r: ''
+        def analyze_stock(*a, **k): return None
+
     try:
         if factor_ranks is None:
             return ''
@@ -306,13 +313,11 @@ def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None)
         if breakout_raw is None:
             return ''
 
-        # 找出今日有突破訊號的股票
         latest = breakout_raw.iloc[-1]
         b5  = break_ma5.iloc[-1]  if break_ma5  is not None else pd.Series(False, index=latest.index)
         b10 = break_ma10.iloc[-1] if break_ma10 is not None else pd.Series(False, index=latest.index)
         vc  = vol_confirm.iloc[-1] if vol_confirm is not None else pd.Series(False, index=latest.index)
 
-        # 今日有突破的股票
         broke = latest[latest > 0].sort_values(ascending=False)
         if broke.empty:
             return '''<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
@@ -321,11 +326,11 @@ def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None)
 </div>'''
 
         rows = ''
-        for ticker in broke.index[:20]:  # 最多顯示 20 檔
+        for ticker in broke.index[:20]:
             if ticker not in close_df.columns:
                 continue
             price = close_df[ticker].iloc[-1]
-            name = (stock_name_map or {}).get(str(ticker), '')
+            name  = (stock_name_map or {}).get(str(ticker), '')
 
             # 突破類型
             types = []
@@ -334,34 +339,63 @@ def _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map=None)
             type_str = ' + '.join(types) if types else '近3日突破'
 
             # 量能狀態
-            vol_ok = vc.get(ticker, False)
+            vol_ok    = vc.get(ticker, False)
             vol_badge = '<span style="color:#00ff00">✅ 量能放大</span>' if vol_ok else '<span style="color:#ffab00">⚠️ 量能不足</span>'
 
             # 突破強度
-            score = float(broke[ticker])
-            strength = '🔥 強力突破' if score >= 1.0 else '📈 溫和突破'
-            color = '#00ff00' if score >= 1.0 else '#ffab00'
+            bscore   = float(broke[ticker])
+            strength = '🔥 強力突破' if bscore >= 1.0 else '📈 溫和突破'
+            color    = '#00ff00' if bscore >= 1.0 else '#ffab00'
 
-            rows += f'''<tr>
-              <td><b>{ticker}</b><br><span style="font-size:0.75rem;color:#aaa;">{name}</span></td>
-              <td style="color:{color}">{strength}</td>
-              <td><span style="color:#58a6ff">{type_str}</span></td>
-              <td>{price:.1f}</td>
-              <td>{vol_badge}</td>
+            # AI 技術分析建議
+            try:
+                h_s = high_df[ticker] if (high_df is not None and ticker in high_df.columns) else None
+                l_s = low_df[ticker]  if (low_df  is not None and ticker in low_df.columns)  else None
+                v_s = vol_df[ticker]  if (vol_df   is not None and ticker in vol_df.columns)  else None
+                advice = analyze_stock(
+                    ticker, close_df[ticker], h_s, l_s, v_s,
+                    stock_name=name
+                )
+                advice_html = render_advice_html(advice)
+                action_short = advice['action'] if advice else '⚪ 分析中'
+                action_color = advice['color']  if advice else '#888'
+            except Exception:
+                advice_html  = ''
+                action_short = '⚪ 分析中'
+                action_color = '#888'
+
+            rows += f'''<tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>{ticker}</b><br><span style="font-size:0.75rem;color:#aaa;">{name}</span></td>
+              <td style="padding:8px;color:{color}">{strength}</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">{type_str}</span></td>
+              <td style="padding:8px;">{price:.1f}</td>
+              <td style="padding:8px;">{vol_badge}</td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:{action_color};font-weight:bold;font-size:0.85rem;">{action_short}</summary>
+                  <div style="margin-top:6px;">{advice_html}</div>
+                </details>
+              </td>
             </tr>'''
 
         return f'''<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
-  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">📡 均線突破雷達 <span style="font-size:0.8rem;color:#555;">（今日剛突破 MA5/MA10 + 量能確認）</span></h3>
+  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">📡 均線突破雷達
+    <span style="font-size:0.8rem;color:#555;">（MA5/MA10 突破 + 量能確認 + AI 建議）</span>
+  </h3>
+  <div style="overflow-x:auto;">
   <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-    <thead><tr style="color:#8b949e;border-bottom:1px solid #333;">
-      <th style="text-align:left;padding:4px 8px">股票</th>
-      <th style="text-align:left;padding:4px 8px">突破強度</th>
-      <th style="text-align:left;padding:4px 8px">突破均線</th>
-      <th style="text-align:left;padding:4px 8px">收盤價</th>
-      <th style="text-align:left;padding:4px 8px">量能</th>
+    <thead><tr style="color:#8b949e;border-bottom:1px solid #333;background:#161b22;">
+      <th style="text-align:left;padding:8px">股票</th>
+      <th style="text-align:left;padding:8px">突破強度</th>
+      <th style="text-align:left;padding:8px">突破均線</th>
+      <th style="text-align:left;padding:8px">收盤價</th>
+      <th style="text-align:left;padding:8px">量能</th>
+      <th style="text-align:left;padding:8px">🤖 AI 投資建議</th>
     </tr></thead>
     <tbody>{rows}</tbody>
   </table>
+  </div>
+  <p style="font-size:0.72rem;color:#555;margin-top:8px;">點擊「AI 投資建議」欄位展開詳細分析 ▼</p>
 </div>'''
     except Exception as e:
         return f'<!-- breakout section error: {e} -->'
@@ -689,7 +723,8 @@ def generate_report(trades_df, equity_df, total_score, close_df, config,
     inst_section_html = _build_inst_section()
 
     # === 建立均線突破雷達區塊 ===
-    breakout_html = _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map)
+    breakout_html = _build_breakout_section(factor_ranks, close_df, vol_df, stock_name_map,
+                                             high_df=high_df, low_df=low_df)
 
     # 從 factor_ranks 取得各因子的 rank 矩陣（與實際評分一致）
     _fr = factor_ranks or {}
