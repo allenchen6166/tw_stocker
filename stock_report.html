@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台股預測平台 — 2026-06-05</title>
+    <title>台股預測平台 — 2026-06-08</title>
     <meta name="description" content="AI 驅動的台股量化交易系統 v8.5，完整風險報告、Benchmark 對比、OCO 智慧掛單建議">
     <script>
         (function() {
@@ -292,7 +292,7 @@
 
     <h1>🎯 台股預測平台</h1>
     <p class="subtitle">
-        Event-Driven System &nbsp;|&nbsp; 報表日期: 2026-06-05 &nbsp;|&nbsp;
+        Event-Driven System &nbsp;|&nbsp; 報表日期: 2026-06-08 &nbsp;|&nbsp;
         <span class="config-badge">🛡️ ATR×4.0/3.0</span>
         <span class="config-badge">🎯 Top-15</span>
         <span class="config-badge">⏱️ 最長 20 天</span>
@@ -303,51 +303,51 @@
     <div class="stats">
         <div class="stat-card">
             <div class="label">策略總報酬率</div>
-            <div class="value" style="color:#00ff00;">+94.2%</div>
+            <div class="value" style="color:#00ff00;">+51.5%</div>
         </div>
         <div class="stat-card">
             <div class="label">年化報酬率</div>
-            <div class="value" style="color:#00ff00;">+146.9%</div>
+            <div class="value" style="color:#00ff00;">+77.1%</div>
         </div>
         <div class="stat-card">
             <div class="label">年化波動率</div>
-            <div class="value">29.6%</div>
+            <div class="value">30.9%</div>
         </div>
         <div class="stat-card risk">
             <div class="label">Sharpe Ratio</div>
-            <div class="value" style="color:#00ff00;">3.23</div>
+            <div class="value" style="color:#00ff00;">2.02</div>
         </div>
         <div class="stat-card risk">
             <div class="label">Sortino Ratio</div>
-            <div class="value">5.65</div>
+            <div class="value">2.91</div>
         </div>
         <div class="stat-card risk">
             <div class="label">最大回撤</div>
-            <div class="value" style="color:#ff4444;">-16.0%</div>
+            <div class="value" style="color:#ff4444;">-16.9%</div>
         </div>
         <div class="stat-card risk">
             <div class="label">Calmar Ratio</div>
-            <div class="value">9.20</div>
+            <div class="value">4.56</div>
         </div>
         <div class="stat-card">
             <div class="label">完成交易數</div>
-            <div class="value">91</div>
+            <div class="value">85</div>
         </div>
         <div class="stat-card">
             <div class="label">勝率</div>
-            <div class="value" style="color:#00ff00;">75.8%</div>
+            <div class="value" style="color:#00ff00;">68.2%</div>
         </div>
         <div class="stat-card">
             <div class="label">Profit Factor</div>
-            <div class="value">4.48</div>
+            <div class="value">2.87</div>
         </div>
         <div class="stat-card">
             <div class="label">平均報酬/筆</div>
-            <div class="value">+10.49%</div>
+            <div class="value">+7.40%</div>
         </div>
         <div class="stat-card">
             <div class="label">平均持有天數</div>
-            <div class="value">12</div>
+            <div class="value">13</div>
         </div>
     </div>
 
@@ -361,7 +361,7 @@
     </div>
     <div style="background:#222;border-radius:6px;padding:0.5rem;">
       <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">VIX 恐慌指數</div>
-      <div style="font-weight:bold;color:#00ff00;">16.7</div>
+      <div style="font-weight:bold;color:#00ff00;">19.0</div>
     </div>
     <div style="background:#222;border-radius:6px;padding:0.5rem;">
       <div style="font-size:0.72rem;color:#888;margin-bottom:4px;">費半 SOX</div>
@@ -377,137 +377,233 @@
   </div>
 </div>
     <div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
-  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">📡 均線突破雷達 <span style="font-size:0.8rem;color:#555;">（今日剛突破 MA5/MA10 + 量能確認）</span></h3>
+  <h3 style="margin:0 0 0.75rem 0;font-size:1rem;color:#eee;">📡 均線突破雷達
+    <span style="font-size:0.8rem;color:#555;">（MA5/MA10 突破 + 量能確認 + AI 建議）</span>
+  </h3>
+  <div style="overflow-x:auto;">
   <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-    <thead><tr style="color:#8b949e;border-bottom:1px solid #333;">
-      <th style="text-align:left;padding:4px 8px">股票</th>
-      <th style="text-align:left;padding:4px 8px">突破強度</th>
-      <th style="text-align:left;padding:4px 8px">突破均線</th>
-      <th style="text-align:left;padding:4px 8px">收盤價</th>
-      <th style="text-align:left;padding:4px 8px">量能</th>
+    <thead><tr style="color:#8b949e;border-bottom:1px solid #333;background:#161b22;">
+      <th style="text-align:left;padding:8px">股票</th>
+      <th style="text-align:left;padding:8px">突破強度</th>
+      <th style="text-align:left;padding:8px">突破均線</th>
+      <th style="text-align:left;padding:8px">收盤價</th>
+      <th style="text-align:left;padding:8px">量能</th>
+      <th style="text-align:left;padding:8px">🤖 AI 投資建議</th>
     </tr></thead>
-    <tbody><tr>
-              <td><b>6547</b><br><span style="font-size:0.75rem;color:#aaa;">高端疫苗</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>48.7</td>
-              <td><span style="color:#00ff00">✅ 量能放大</span></td>
-            </tr><tr>
-              <td><b>6525</b><br><span style="font-size:0.75rem;color:#aaa;">捷敏-KY</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">MA5</span></td>
-              <td>121.0</td>
-              <td><span style="color:#00ff00">✅ 量能放大</span></td>
-            </tr><tr>
-              <td><b>3023</b><br><span style="font-size:0.75rem;color:#aaa;">信邦</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">MA5 + MA10</span></td>
-              <td>329.0</td>
-              <td><span style="color:#00ff00">✅ 量能放大</span></td>
-            </tr><tr>
-              <td><b>2002</b><br><span style="font-size:0.75rem;color:#aaa;">中鋼</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>19.3</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>1519</b><br><span style="font-size:0.75rem;color:#aaa;">華城</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>851.0</td>
-              <td><span style="color:#00ff00">✅ 量能放大</span></td>
-            </tr><tr>
-              <td><b>2609</b><br><span style="font-size:0.75rem;color:#aaa;">陽明</span></td>
-              <td style="color:#00ff00">🔥 強力突破</td>
-              <td><span style="color:#58a6ff">MA5</span></td>
-              <td>54.5</td>
-              <td><span style="color:#00ff00">✅ 量能放大</span></td>
-            </tr><tr>
-              <td><b>2308</b><br><span style="font-size:0.75rem;color:#aaa;">台達電</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>2300.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>6446</b><br><span style="font-size:0.75rem;color:#aaa;">藥華藥</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>937.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>4142</b><br><span style="font-size:0.75rem;color:#aaa;">國光生</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>17.9</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>1707</b><br><span style="font-size:0.75rem;color:#aaa;">葡萄王</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>101.5</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2606</b><br><span style="font-size:0.75rem;color:#aaa;">裕民</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">MA10</span></td>
-              <td>70.8</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>3034</b><br><span style="font-size:0.75rem;color:#aaa;">聯詠</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">MA10</span></td>
-              <td>492.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>3711</b><br><span style="font-size:0.75rem;color:#aaa;">日月光投控</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>577.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>3036</b><br><span style="font-size:0.75rem;color:#aaa;">文曄</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>281.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2404</b><br><span style="font-size:0.75rem;color:#aaa;">漢唐</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>1205.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2360</b><br><span style="font-size:0.75rem;color:#aaa;">致茂</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>2565.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2368</b><br><span style="font-size:0.75rem;color:#aaa;">金像電</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>1315.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2301</b><br><span style="font-size:0.75rem;color:#aaa;">光寶科</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>230.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2345</b><br><span style="font-size:0.75rem;color:#aaa;">智邦</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>2490.0</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
-            </tr><tr>
-              <td><b>2449</b><br><span style="font-size:0.75rem;color:#aaa;">京元電子</span></td>
-              <td style="color:#ffab00">📈 溫和突破</td>
-              <td><span style="color:#58a6ff">近3日突破</span></td>
-              <td>309.5</td>
-              <td><span style="color:#ffab00">⚠️ 量能不足</span></td>
+    <tbody><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>6547O</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#00ff00">🔥 強力突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">48.7</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ff6600;font-weight:bold;font-size:0.85rem;">
+                    🟠 建議賣出
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ff6600">-16</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ff6600;margin-bottom:6px;">🟠 建議賣出</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 3 個，看空訊號 3 個，綜合分數 -16</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 空頭趨勢（頭頭低底底低）<span style="float:right;color:#ff4444;">-20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+2.9%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=55 D=42）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 MACD 零軸下方（不做多）<span style="float:right;color:#ff4444;">-8分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 RSI 超買（73），注意回檔<span style="float:right;color:#ff4444;">-5分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（0.9x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 長下影線（有撐，等隔日確認）<span style="float:right;color:#00ff00;">+3分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 回撤至 0.5 支撐（正常回檔）<span style="float:right;color:#00ff00;">+4分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>2609</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#00ff00">🔥 強力突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">51.7</td>
+              <td style="padding:8px;"><span style="color:#00ff00">✅ 量能放大</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ffab00;font-weight:bold;font-size:0.85rem;">
+                    🟡 觀望
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ffab00">+10</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ffab00;margin-bottom:6px;">🟡 觀望</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 3 個，看空訊號 2 個，綜合分數 +10</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 盤整（趨勢不明確）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+0.2%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 均線多頭排列（5>10>20）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=48 D=61）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 MACD 零軸上方，紅柱縮短（準備回檔）<span style="float:right;color:#00ff00;">+3分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.0x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 長黑K（空方佔優）<span style="float:right;color:#ff4444;">-5分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 向下跳空缺口（空方強力，重要壓力）<span style="float:right;color:#ff4444;">-8分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>6525</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#00ff00">🔥 強力突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">119.0</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#00cc66;font-weight:bold;font-size:0.85rem;">
+                    🟢 建議買進
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#00cc66">+33</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#00cc66;margin-bottom:6px;">🟢 建議買進</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 3 個，看空訊號 0 個，綜合分數 +33</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 多頭趨勢（頭頭高底底高）<span style="float:right;color:#00ff00;">+20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+5.3%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=39 D=43）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ MACD 中性<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.3x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 長下影線（有撐，等隔日確認）<span style="float:right;color:#00ff00;">+3分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>3023</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#00ff00">🔥 強力突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">322.5</td>
+              <td style="padding:8px;"><span style="color:#00ff00">✅ 量能放大</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#00cc66;font-weight:bold;font-size:0.85rem;">
+                    🟢 建議買進
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#00cc66">+23</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#00cc66;margin-bottom:6px;">🟢 建議買進</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 4 個，看空訊號 2 個，綜合分數 +23</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 多頭趨勢（頭頭高底底高）<span style="float:right;color:#00ff00;">+20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+4.4%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 均線多頭排列（5>10>20）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 KD 高檔死亡交叉（K=68）<span style="float:right;color:#ff4444;">-12分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 MACD 零軸上方，紅柱縮短（準備回檔）<span style="float:right;color:#00ff00;">+3分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚠️ MACD 頂背離（漲勢衰竭警告）<span style="float:right;color:#ff4444;">-8分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.8x 均量）<span style="float:right;color:#888;">+0分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>2404</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">1110.0</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ff6600;font-weight:bold;font-size:0.85rem;">
+                    🟠 建議賣出
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ff6600">-20</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ff6600;margin-bottom:6px;">🟠 建議賣出</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 1 個，看空訊號 4 個，綜合分數 -20</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 多頭趨勢（頭頭高底底高）<span style="float:right;color:#00ff00;">+20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 股價跌破月線（-1.2%）<span style="float:right;color:#ff4444;">-15分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=30 D=40）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 MACD 死亡交叉（綠柱出現）<span style="float:right;color:#ff4444;">-12分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（0.9x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 長黑K（空方佔優）<span style="float:right;color:#ff4444;">-5分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 向下跳空缺口（空方強力，重要壓力）<span style="float:right;color:#ff4444;">-8分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>2368</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">MA5 + MA10</span></td>
+              <td style="padding:8px;">1360.0</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#00ff00;font-weight:bold;font-size:0.85rem;">
+                    🚀 強力買進
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#00ff00">+43</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#00ff00;margin-bottom:6px;">🚀 強力買進</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 4 個，看空訊號 0 個，綜合分數 +43</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 盤整（趨勢不明確）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+1.8%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 葛蘭碧買點一：股價從下穿越月線向上<span style="float:right;color:#00ff00;">+15分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 KD 低檔黃金交叉（K=46）<span style="float:right;color:#00ff00;">+12分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ MACD 中性<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.0x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 長下影線＋紅K（多方撐盤有力）<span style="float:right;color:#00ff00;">+6分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>2606</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">68.2</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ff6600;font-weight:bold;font-size:0.85rem;">
+                    🟠 建議賣出
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ff6600">-15</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ff6600;margin-bottom:6px;">🟠 建議賣出</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 1 個，看空訊號 3 個，綜合分數 -15</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 盤整（趨勢不明確）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+0.9%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=53 D=69）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 MACD 死亡交叉（綠柱出現）<span style="float:right;color:#ff4444;">-12分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（0.8x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 長黑K（空方佔優）<span style="float:right;color:#ff4444;">-5分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 向下跳空缺口（空方強力，重要壓力）<span style="float:right;color:#ff4444;">-8分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>6446</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">926.0</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#00cc66;font-weight:bold;font-size:0.85rem;">
+                    🟢 建議買進
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#00cc66">+35</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#00cc66;margin-bottom:6px;">🟢 建議買進</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 4 個，看空訊號 1 個，綜合分數 +35</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 多頭趨勢（頭頭高底底高）<span style="float:right;color:#00ff00;">+20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 股價在月線上方（+8.6%）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 均線多頭排列（5>10>20）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=67 D=71）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 MACD 零軸上方，紅柱縮短（準備回檔）<span style="float:right;color:#00ff00;">+3分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚠️ MACD 頂背離（漲勢衰竭警告）<span style="float:right;color:#ff4444;">-8分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.3x 均量）<span style="float:right;color:#888;">+0分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>3034</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">473.0</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ffab00;font-weight:bold;font-size:0.85rem;">
+                    🟡 觀望
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ffab00">+2</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ffab00;margin-bottom:6px;">🟡 觀望</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 2 個，看空訊號 3 個，綜合分數 +2</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 多頭趨勢（頭頭高底底高）<span style="float:right;color:#00ff00;">+20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 股價跌破月線（-2.5%）<span style="float:right;color:#ff4444;">-15分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟢 均線多頭排列（5>10>20）<span style="float:right;color:#00ff00;">+10分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=48 D=59）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ MACD 中性<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（0.8x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 長黑K（空方佔優）<span style="float:right;color:#ff4444;">-5分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 向下跳空缺口（空方強力，重要壓力）<span style="float:right;color:#ff4444;">-8分</span></div>
+</div></div>
+                </details>
+              </td>
+            </tr><tr style="border-bottom:1px solid #1f2937;">
+              <td style="padding:8px;"><b>1760</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td>
+              <td style="padding:8px;color:#ffab00">📈 溫和突破</td>
+              <td style="padding:8px;"><span style="color:#58a6ff">近3日突破</span></td>
+              <td style="padding:8px;">60.8</td>
+              <td style="padding:8px;"><span style="color:#ffab00">⚠️ 量能不足</span></td>
+              <td style="padding:8px;min-width:280px;">
+                <details>
+                  <summary style="cursor:pointer;color:#ff3333;font-weight:bold;font-size:0.85rem;">
+                    🔴 強力賣出
+                    <span style="font-size:0.78rem;color:#aaa;font-weight:normal;margin-left:6px;">
+                      （總分 <b style="color:#ff3333">-40</b>）
+                    </span>
+                  </summary>
+                  <div style="margin-top:6px;"><div style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 10px;min-width:220px;">
+  <div style="font-weight:bold;font-size:0.85rem;color:#ff3333;margin-bottom:6px;">🔴 強力賣出</div>
+  <div style="font-size:0.72rem;color:#888;margin-bottom:6px;">看多訊號 1 個，看空訊號 3 個，綜合分數 -40</div>
+  <div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 空頭趨勢（頭頭低底底低）<span style="float:right;color:#ff4444;">-20分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 股價跌破月線（-0.5%）<span style="float:right;color:#ff4444;">-15分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 均線糾結（盤整中）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ KD 中性（K=52 D=42）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🔴 MACD 零軸下方（不做多）<span style="float:right;color:#ff4444;">-8分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">⚪ 成交量正常（1.1x 均量）<span style="float:right;color:#888;">+0分</span></div><div style="padding:2px 0;font-size:0.76rem;color:#cdd9e5;">🟡 長下影線（有撐，等隔日確認）<span style="float:right;color:#00ff00;">+3分</span></div>
+</div></div>
+                </details>
+              </td>
             </tr></tbody>
   </table>
+  </div>
+  <p style="font-size:0.72rem;color:#555;margin-top:8px;">點擊「AI 投資建議」欄位展開詳細分析 ▼</p>
 </div>
     <h2>🚀 今日 AI 交易執行單</h2>
     <p class="section-note">
@@ -527,29 +623,31 @@
             </tr>
         </thead>
         <tbody>
-<tr><td><b>2308</b><br><span style="font-size:0.78rem;color:#aaa;">台達電</span></td><td>4.88<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:44px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">55%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:74px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">93%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:37px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">47%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:62px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">78%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">46%</span></div></td><td>2300.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+20.7%</span><br>20日漲幅: <span style="color:#00ff00">+4.5%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +20.7%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #1</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 2300.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">2765.0</span> (+20.2%) <br><b>停損:</b> <span style="color:#ff4444">1951.2</span> (-15.2%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">100%</b> | 均報酬 <b style="color:#00ff00">+20.1%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
-<tr><td><b>6770</b><br><span style="font-size:0.78rem;color:#aaa;">力積電</span></td><td>4.47<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:40px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">50%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:76px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">95%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:14px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">18%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:44px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">55%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:80px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">100%</span></div></td><td>74.6<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+18.9%</span><br>20日漲幅: <span style="color:#00ff00">+21.5%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +21.5%，可能過熱</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #2</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +6.0%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">95.3</span> (+27.8%) <br><b>停損:</b> <span style="color:#ff4444">59.0</span> (-20.9%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>4</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#00ff00">+3.1%</b></span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+6.0%</span></span></td></tr>
-<tr><td><b>2301</b><br><span style="font-size:0.78rem;color:#aaa;">光寶科</span></td><td>4.44<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:54px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">68%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:53px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">67%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:45px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">57%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:34px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">43%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">46%</span></div></td><td>230.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+25.3%</span><br>20日漲幅: <span style="color:#00ff00">+12.7%</span><br>量能比: <span style="color:#aaa">1.1x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +25.3%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #3</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 230.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">291.6</span> (+26.8%) <br><b>停損:</b> <span style="color:#ff4444">183.8</span> (-20.1%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
-<tr><td><b>3149</b><br><span style="font-size:0.78rem;color:#aaa;">正達</span></td><td>4.43<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:77px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">97%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:8px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">10%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:49px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">62%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:65px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">82%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:65px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">82%</span></div></td><td>90.8<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+73.8%</span><br>20日漲幅: <span style="color:#00ff00">+88.2%</span><br>量能比: <span style="color:#aaa">1.1x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +88.2%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +73.8%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #4</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +2.7%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">111.3</span> (+22.6%) <br><b>停損:</b> <span style="color:#ff4444">75.4</span> (-17.0%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+2.7%</span></span></td></tr>
-<tr><td><b>3443</b><br><span style="font-size:0.78rem;color:#aaa;">創意</span></td><td>4.42<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:66px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">83%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:41px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">52%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:13px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">17%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:58px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">73%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:60px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">75%</span></div></td><td>4410.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+17.4%</span><br>20日漲幅: <span style="color:#ff4444">-15.4%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #5</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 4410.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">6153.0</span> (+39.5%) <br><b>停損:</b> <span style="color:#ff4444">3102.8</span> (-29.6%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#00ff00">+1.9%</b></span></td><td><span style="font-size:0.78rem;">🟡 小買<br><span style="color:#ffab00; font-weight:bold;">+1.4%</span></span></td></tr>
-<tr><td><b>2404</b><br><span style="font-size:0.78rem;color:#aaa;">漢唐</span></td><td>4.40<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:29px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">37%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:12px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">15%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:77px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">97%</span></div></td><td>1205.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+20.1%</span><br>20日漲幅: <span style="color:#00ff00">+18.7%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +18.7%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +20.1%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #6</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +5.2%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">1489.8</span> (+23.6%) <br><b>停損:</b> <span style="color:#ff4444">991.4</span> (-17.7%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+5.2%</span></span></td></tr>
-<tr><td><b>2344</b><br><span style="font-size:0.78rem;color:#aaa;">華邦電</span></td><td>4.39<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:70px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">88%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:13px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">17%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:42px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">53%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:57px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">72%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span></div></td><td>162.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+43.3%</span><br>20日漲幅: <span style="color:#00ff00">+51.4%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +51.4%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +43.3%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #7</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +5.6%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">211.7</span> (+30.7%) <br><b>停損:</b> <span style="color:#ff4444">124.7</span> (-23.0%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#00ff00">+8.4%</b></span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+5.6%</span></span></td></tr>
-<tr><td><b>2360</b><br><span style="font-size:0.78rem;color:#aaa;">致茂</span></td><td>4.35<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:42px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">53%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:49px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">62%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:21px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">27%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">46%</span></div></td><td>2565.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+27.4%</span><br>20日漲幅: <span style="color:#00ff00">+15.0%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +15.0%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +27.4%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #8</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 2565.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">3237.0</span> (+26.2%) <br><b>停損:</b> <span style="color:#ff4444">2061.0</span> (-19.6%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>3</b>筆 | 勝率 <b style="color:#00ff00">100%</b> | 均報酬 <b style="color:#00ff00">+22.6%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
-<tr><td><b>2376</b><br><span style="font-size:0.78rem;color:#aaa;">技嘉</span></td><td>4.34<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:49px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">62%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:45px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">57%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:56px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">70%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:48px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">60%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:72px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">90%</span></div></td><td>369.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+28.9%</span><br>20日漲幅: <span style="color:#00ff00">+16.4%</span><br>量能比: <span style="color:#aaa">1.2x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +16.4%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +28.9%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #9</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +3.3%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">443.8</span> (+20.3%) <br><b>停損:</b> <span style="color:#ff4444">312.9</span> (-15.2%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+3.3%</span></span></td></tr>
-<tr><td><b>2345</b><br><span style="font-size:0.78rem;color:#aaa;">智邦</span></td><td>4.34<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:52px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">65%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:44px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">55%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:9px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">12%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:64px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">80%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">46%</span></div></td><td>2490.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+19.3%</span><br>20日漲幅: <span style="color:#00ff00">+4.8%</span><br>量能比: <span style="color:#aaa">0.7x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #10</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 2490.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">3108.0</span> (+24.8%) <br><b>停損:</b> <span style="color:#ff4444">2026.5</span> (-18.6%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>3</b>筆 | 勝率 <b style="color:#00ff00">67%</b> | 均報酬 <b style="color:#00ff00">+8.3%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
-<tr><td><b>3711</b><br><span style="font-size:0.78rem;color:#aaa;">日月光投控</span></td><td>4.32<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:50px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">63%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:58px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">73%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:30px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">38%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:60px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">75%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:9px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">12%</span></div></td><td>577.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+24.2%</span><br>20日漲幅: <span style="color:#00ff00">+11.8%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +24.2%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #11</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 577.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">723.5</span> (+25.4%) <br><b>停損:</b> <span style="color:#ff4444">467.1</span> (-19.0%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>5</b>筆 | 勝率 <b style="color:#00ff00">100%</b> | 均報酬 <b style="color:#00ff00">+16.2%</b></span></td><td><span style="font-size:0.78rem;">🟠 小賣<br><span style="color:#ffab00; font-weight:bold;">-1.6%</span></span></td></tr>
-<tr><td><b>2408</b><br><span style="font-size:0.78rem;color:#aaa;">南亞科</span></td><td>4.29<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:20px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">25%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:33px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">42%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:54px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">68%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:70px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">88%</span></div></td><td>360.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+36.6%</span><br>20日漲幅: <span style="color:#00ff00">+31.4%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +31.4%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +36.6%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #12</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +3.1%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">469.8</span> (+30.5%) <br><b>停損:</b> <span style="color:#ff4444">277.6</span> (-22.9%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>3</b>筆 | 勝率 <b style="color:#00ff00">67%</b> | 均報酬 <b style="color:#00ff00">+1.2%</b></span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+3.1%</span></span></td></tr>
-<tr><td><b>6446</b><br><span style="font-size:0.78rem;color:#aaa;">藥華藥</span></td><td>4.22<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:56px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">70%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:25px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">32%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:17px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">22%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:45px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">57%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:61px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">77%</span></div></td><td>937.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+31.9%</span><br>20日漲幅: <span style="color:#00ff00">+29.4%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +29.4%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +31.9%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #13</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 937.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">1112.6</span> (+18.7%) <br><b>停損:</b> <span style="color:#ff4444">805.3</span> (-14.1%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟡 小買<br><span style="color:#ffab00; font-weight:bold;">+1.9%</span></span></td></tr>
-<tr><td><b>2454</b><br><span style="font-size:0.78rem;color:#aaa;">聯發科</span></td><td>4.20<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:5px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">7%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:48px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">60%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:77px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">97%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">46%</span></div></td><td>4300.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+61.5%</span><br>20日漲幅: <span style="color:#00ff00">+18.5%</span><br>量能比: <span style="color:#aaa">1.1x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +18.5%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +61.5%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #14</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY -0.9%，市場平穩，開盤附近 4300.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">5628.0</span> (+30.9%) <br><b>停損:</b> <span style="color:#ff4444">3304.0</span> (-23.2%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#ff4444">-2.0%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
-<tr><td><b>2356</b><br><span style="font-size:0.78rem;color:#aaa;">英業達</span></td><td>4.14<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:68px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">85%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:2px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">3%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:56px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">70%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:68px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">85%</span></div></td><td>76.8<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+52.1%</span><br>20日漲幅: <span style="color:#00ff00">+55.0%</span><br>量能比: <span style="color:#aaa">1.7x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +55.0%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +52.1%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #15</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY -0.9%，法人強力買超 +2.8%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">96.2</span> (+25.3%) <br><b>停損:</b> <span style="color:#ff4444">62.2</span> (-19.0%) <br><b>最晚出場:</b> 2026-07-06</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+2.8%</span></span></td></tr>
-<tr style="opacity:0.6"><td>2383</td><td>4.12</td><td>4885.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#888;">勝率 <b style="color:#00ff00">100%</b></span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
-<tr style="opacity:0.6"><td>2379</td><td>4.12</td><td>643.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">🟢 大買<br><span style="color:#00ff00">+3.5%</span></span></td></tr>
-<tr style="opacity:0.6"><td>2317</td><td>4.11</td><td>284.5</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">🟢 大買<br><span style="color:#00ff00">+2.7%</span></span></td></tr>
-<tr style="opacity:0.6"><td>3231</td><td>4.08</td><td>171.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">🟢 大買<br><span style="color:#00ff00">+3.8%</span></span></td></tr>
-<tr style="opacity:0.6"><td>2327</td><td>4.07</td><td>769.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#888;">勝率 <b style="color:#00ff00">100%</b></span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
-<tr style="opacity:0.4"><td>3533</td><td>1.97</td><td>2365.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
-<tr style="opacity:0.4"><td>2412</td><td>1.71</td><td>141.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
-<tr style="opacity:0.4"><td>1519</td><td>1.70</td><td>851.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
+<tr><td><b>2408</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.91<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:68px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">85%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:53px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">67%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:26px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">33%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:56px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">70%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span></div></td><td>339.5<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+28.1%</span><br>20日漲幅: <span style="color:#00ff00">+12.8%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +28.1%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #1</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +3.0%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">451.1</span> (+32.9%) <br><b>停損:</b> <span style="color:#ff4444">255.8</span> (-24.7%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+3.0%</span></span></td></tr>
+<tr><td><b>2376</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.82<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:42px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">53%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:80px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">100%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:44px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">55%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:48px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">60%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:72px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">90%</span></div></td><td>345.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+19.7%</span><br>20日漲幅: <span style="color:#00ff00">+6.3%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #2</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +3.5%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">423.4</span> (+22.7%) <br><b>停損:</b> <span style="color:#ff4444">286.2</span> (-17.0%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+3.5%</span></span></td></tr>
+<tr><td><b>6446</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.77<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:60px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">75%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:45px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">57%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:17px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">22%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:46px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">58%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:60px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">75%</span></div></td><td>926.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+29.6%</span><br>20日漲幅: <span style="color:#00ff00">+31.2%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +31.2%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +29.6%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #3</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 926.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">1105.6</span> (+19.4%) <br><b>停損:</b> <span style="color:#ff4444">791.3</span> (-14.5%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟡 小買<br><span style="color:#ffab00; font-weight:bold;">+1.6%</span></span></td></tr>
+<tr><td><b>2360</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.63<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:52px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">65%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:74px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">93%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:18px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">23%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:70px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">88%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>2450.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+20.7%</span><br>20日漲幅: <span style="color:#00ff00">+3.8%</span><br>量能比: <span style="color:#aaa">0.8x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +20.7%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #4</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 2450.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">3131.0</span> (+27.8%) <br><b>停損:</b> <span style="color:#ff4444">1939.2</span> (-20.8%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>6</b>筆 | 勝率 <b style="color:#00ff00">100%</b> | 均報酬 <b style="color:#00ff00">+17.3%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>2368</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.61<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:34px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">43%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:40px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">50%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:61px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">77%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>1360.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+13.7%</span><br>20日漲幅: <span style="color:#ff4444">-2.9%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #5</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 1360.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">1760.0</span> (+29.4%) <br><b>停損:</b> <span style="color:#ff4444">1060.0</span> (-22.1%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>3</b>筆 | 勝率 <b style="color:#00ff00">67%</b> | 均報酬 <b style="color:#00ff00">+7.2%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>3149</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.61<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:77px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">97%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:5px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">7%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:56px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">70%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:64px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">80%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:76px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">95%</span></div></td><td>86.8<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+64.1%</span><br>20日漲幅: <span style="color:#00ff00">+71.9%</span><br>量能比: <span style="color:#aaa">1.1x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +71.9%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +64.1%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #6</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +3.9%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">108.5</span> (+25.0%) <br><b>停損:</b> <span style="color:#ff4444">70.6</span> (-18.7%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+3.9%</span></span></td></tr>
+<tr><td><b>2344</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.48<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:70px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">88%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:17px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">22%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:32px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">40%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:58px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">73%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span></div></td><td>154.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+35.5%</span><br>20日漲幅: <span style="color:#00ff00">+31.1%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +31.1%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +35.5%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #7</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +5.0%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">204.8</span> (+33.0%) <br><b>停損:</b> <span style="color:#ff4444">115.9</span> (-24.7%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+5.0%</span></span></td></tr>
+<tr><td><b>2383</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.45<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:57px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">72%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:49px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">62%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:37px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">47%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:74px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">93%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>4770.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+18.8%</span><br>20日漲幅: <span style="color:#ff4444">-1.6%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #8</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 4770.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">6062.0</span> (+27.1%) <br><b>停損:</b> <span style="color:#ff4444">3801.0</span> (-20.3%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>2308</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.40<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:40px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">50%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:73px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">92%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:45px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">57%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:65px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">82%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>2255.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+17.5%</span><br>20日漲幅: <span style="color:#00ff00">+0.4%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #9</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 2255.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">2748.0</span> (+21.9%) <br><b>停損:</b> <span style="color:#ff4444">1885.2</span> (-16.4%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>3443</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.37<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:69px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">87%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:34px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">43%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:12px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">15%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:57px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">72%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:57px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">72%</span></div></td><td>4255.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+12.8%</span><br>20日漲幅: <span style="color:#ff4444">-25.4%</span><br>量能比: <span style="color:#aaa">0.7x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #10</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 4255.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">5964.6</span> (+40.2%) <br><b>停損:</b> <span style="color:#ff4444">2972.8</span> (-30.1%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#ff4444">-1.0%</b></span></td><td><span style="font-size:0.78rem;">🟡 小買<br><span style="color:#ffab00; font-weight:bold;">+1.4%</span></span></td></tr>
+<tr><td><b>2356</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.34<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:66px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">83%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:16px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">20%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:61px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">77%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:54px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">68%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:66px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">83%</span></div></td><td>69.2<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+35.9%</span><br>20日漲幅: <span style="color:#00ff00">+37.8%</span><br>量能比: <span style="color:#aaa">1.3x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +37.8%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +35.9%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #11</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +2.8%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">89.9</span> (+29.9%) <br><b>停損:</b> <span style="color:#ff4444">53.7</span> (-22.4%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+2.8%</span></span></td></tr>
+<tr><td><b>2317</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.32<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:46px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">58%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:72px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">90%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:52px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">65%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:14px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">18%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:65px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">82%</span></div></td><td>269.5<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+16.9%</span><br>20日漲幅: <span style="color:#00ff00">+6.9%</span><br>量能比: <span style="color:#aaa">1.1x</span><br>52週位: -</div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #12</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #00cc66;background:#1a1a2e;font-size:0.75rem;"><b style="color:#00cc66;">🟢 平開＋法人大買，按計畫進場</b><br><span style="color:#aaa;">SPY +0.7%，法人強力買超 +2.5%，開盤附近進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">319.3</span> (+18.5%) <br><b>停損:</b> <span style="color:#ff4444">232.2</span> (-13.9%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">🟢 大買<br><span style="color:#00ff00; font-weight:bold;">+2.5%</span></span></td></tr>
+<tr><td><b>3037</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.24<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:58px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">73%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:37px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">47%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:24px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">30%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:80px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">100%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>911.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+21.8%</span><br>20日漲幅: <span style="color:#00ff00">+5.8%</span><br>量能比: <span style="color:#aaa">0.9x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +21.8%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #13</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 911.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">1189.0</span> (+30.5%) <br><b>停損:</b> <span style="color:#ff4444">702.5</span> (-22.9%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>4</b>筆 | 勝率 <b style="color:#00ff00">100%</b> | 均報酬 <b style="color:#00ff00">+24.7%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>2454</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.20<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:2px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">3%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:46px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">58%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:77px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">97%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>4070.0<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+50.7%</span><br>20日漲幅: <span style="color:#00ff00">+4.9%</span><br>量能比: <span style="color:#aaa">1.0x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +50.7%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #14</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 4070.0 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">5387.0</span> (+32.4%) <br><b>停損:</b> <span style="color:#ff4444">3082.2</span> (-24.3%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#888;">歷史 <b>2</b>筆 | 勝率 <b style="color:#00ff00">50%</b> | 均報酬 <b style="color:#ff4444">-5.2%</b></span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr><td><b>2353</b><br><span style="font-size:0.78rem;color:#aaa;"></span></td><td>4.19<br><div style="font-size:0.72rem;line-height:1.8;margin-top:4px;">動能×2 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00aaff;width:38px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">48%</span><br>趨勢×1.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#00ddaa;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span><br>量能×0.5 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#aa88ff;width:78px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">98%</span><br>RS×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ff9944;width:26px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">33%</span><br>法人×1 <div style="background:#222;border-radius:3px;width:80px;height:8px;display:inline-block;vertical-align:middle;"><div style="background:#ffaa00;width:36px;height:8px;border-radius:3px;"></div></div> <span style="font-size:0.72rem;color:#aaa;">45%</span></div></td><td>35.3<br><div style="font-size:0.75rem;line-height:1.8;color:#aaa;">距MA60: <span style="color:#00ff00">+20.4%</span><br>20日漲幅: <span style="color:#00ff00">+22.6%</span><br>量能比: <span style="color:#ffab00">2.2x</span><br>52週位: -<br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 近20日漲幅 +22.6%，可能過熱</span><br><span style="color:#ffab00;font-size:0.72rem;">⚠️ 距MA60達 +20.4%，注意回落風險</span></div></td><td><span style="color:#00ff00; font-weight:bold;">🟢 建議買進 #15</span><div style="margin-top:6px;padding:6px 8px;border-radius:5px;border-left:3px solid #aaaaaa;background:#1a1a2e;font-size:0.75rem;"><b style="color:#aaaaaa;">🟢 平開，按計畫正常進場</b><br><span style="color:#aaa;">SPY +0.7%，市場平穩，開盤附近 35.3 進場</span></div></td><td><b>停利:</b> <span style="color:#00ff00">43.3</span> (+22.8%) <br><b>停損:</b> <span style="color:#ff4444">29.3</span> (-17.1%) <br><b>最晚出場:</b> 2026-07-07</td><td><span style="font-size:0.72rem; color:#555;">歷史資料不足</span></td><td><span style="font-size:0.78rem;">⚪ 無資料<br><span style="color:#888; font-weight:bold;">+0.0%</span></span></td></tr>
+<tr style="opacity:0.6"><td>2377</td><td>4.17</td><td>132.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
+<tr style="opacity:0.6"><td>2357</td><td>4.16</td><td>844.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
+<tr style="opacity:0.6"><td>5274O</td><td>4.14</td><td>17525.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#888;">勝率 <b style="color:#00ff00">100%</b></span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
+<tr style="opacity:0.6"><td>3231</td><td>4.13</td><td>163.5</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#555;">-</span></td><td><span style="font-size:0.72rem;">🟢 大買<br><span style="color:#00ff00">+3.8%</span></span></td></tr>
+<tr style="opacity:0.6"><td>2327</td><td>4.12</td><td>751.0</td><td><span style="color:#ffab00">🟡 候選 (超出 Top-K)</span></td><td>-</td><td><span style="font-size:0.72rem; color:#888;">勝率 <b style="color:#00ff00">50%</b></span></td><td><span style="font-size:0.72rem;">⚪ 無資料<br><span style="color:#888">+0.0%</span></span></td></tr>
+<tr style="opacity:0.4"><td>3533</td><td>2.09</td><td>2290.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (低於 MA)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
+<tr style="opacity:0.4"><td>3529O</td><td>2.01</td><td>3200.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (低於 MA)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
+<tr style="opacity:0.4"><td>1504</td><td>1.98</td><td>71.6</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
+<tr style="opacity:0.4"><td>3035</td><td>1.75</td><td>176.0</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
+<tr style="opacity:0.4"><td>2412</td><td>1.71</td><td>138.5</td><td><span style="color:#aaaaaa">⚪ 觀望 (評分不足)</span></td><td>-</td><td>-</td><td style="color:#555">-</td><td style="color:#555">-</td></tr>
 
         </tbody>
     </table>
@@ -570,21 +668,21 @@
                     <th style="text-align:right;">持股</th>
                     <th style="width:80px;">幅度</th>
                 </tr></thead>
-                <tbody><tr><td style="text-align:center;color:#888;">1</td><td><b>2492</b> 華新科</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+10.0%</td><td style="text-align:right;">31.6%</td><td><div style="background:linear-gradient(90deg,#00ff0044 80.18904150796004%,transparent 80.18904150796004%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">2</td><td><b>2481</b> 強茂</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+9.3%</td><td style="text-align:right;">36.3%</td><td><div style="background:linear-gradient(90deg,#00ff0044 74.45397294830099%,transparent 74.45397294830099%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">3</td><td><b>4916</b> 事欣科</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+9.0%</td><td style="text-align:right;">20.8%</td><td><div style="background:linear-gradient(90deg,#00ff0044 71.86529279069536%,transparent 71.86529279069536%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">4</td><td><b>6282</b> 康舒</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+8.9%</td><td style="text-align:right;">21.6%</td><td><div style="background:linear-gradient(90deg,#00ff0044 71.2530909452476%,transparent 71.2530909452476%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">5</td><td><b>3026</b> 禾伸堂</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+6.4%</td><td style="text-align:right;">26.0%</td><td><div style="background:linear-gradient(90deg,#00ff0044 50.992326867924845%,transparent 50.992326867924845%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">6</td><td><b>6770</b> 力積電</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+6.0%</td><td style="text-align:right;">18.4%</td><td><div style="background:linear-gradient(90deg,#00ff0044 48.234426800109446%,transparent 48.234426800109446%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">7</td><td><b>2399</b> 映泰</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.8%</td><td style="text-align:right;">9.1%</td><td><div style="background:linear-gradient(90deg,#00ff0044 46.62117911285796%,transparent 46.62117911285796%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">8</td><td><b>4571</b> 鈞興-KY</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.7%</td><td style="text-align:right;">66.8%</td><td><div style="background:linear-gradient(90deg,#00ff0044 45.99999999999994%,transparent 45.99999999999994%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">9</td><td><b>8028</b> 昇陽半導體</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.7%</td><td style="text-align:right;">28.1%</td><td><div style="background:linear-gradient(90deg,#00ff0044 45.64634575928841%,transparent 45.64634575928841%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">10</td><td><b>3033</b> 威健</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.6%</td><td style="text-align:right;">22.2%</td><td><div style="background:linear-gradient(90deg,#00ff0044 44.86343549979557%,transparent 44.86343549979557%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">11</td><td><b>2344</b> 華邦電</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.6%</td><td style="text-align:right;">32.6%</td><td><div style="background:linear-gradient(90deg,#00ff0044 44.63488375373049%,transparent 44.63488375373049%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">12</td><td><b>2027</b> 大成鋼</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.5%</td><td style="text-align:right;">22.9%</td><td><div style="background:linear-gradient(90deg,#00ff0044 44.31000141663344%,transparent 44.31000141663344%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">13</td><td><b>2404</b> 漢唐</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.2%</td><td style="text-align:right;">29.9%</td><td><div style="background:linear-gradient(90deg,#00ff0044 41.84230983423615%,transparent 41.84230983423615%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">14</td><td><b>3376</b> 新日興</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.2%</td><td style="text-align:right;">30.0%</td><td><div style="background:linear-gradient(90deg,#00ff0044 41.58323856999482%,transparent 41.58323856999482%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">15</td><td><b>3413</b> 京鼎</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.2%</td><td style="text-align:right;">17.4%</td><td><div style="background:linear-gradient(90deg,#00ff0044 41.36311565354731%,transparent 41.36311565354731%);height:18px;border-radius:3px;"></div></td></tr>
+                <tbody><tr><td style="text-align:center;color:#888;">1</td><td><b>2481</b> 強茂</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+11.2%</td><td style="text-align:right;">37.4%</td><td><div style="background:linear-gradient(90deg,#00ff0044 89.74144570280032%,transparent 89.74144570280032%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">2</td><td><b>2492</b> 華新科</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+10.5%</td><td style="text-align:right;">32.0%</td><td><div style="background:linear-gradient(90deg,#00ff0044 84.26527328693925%,transparent 84.26527328693925%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">3</td><td><b>4916</b> 事欣科</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+10.0%</td><td style="text-align:right;">21.0%</td><td><div style="background:linear-gradient(90deg,#00ff0044 80.10529279069537%,transparent 80.10529279069537%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">4</td><td><b>6770</b> 力積電</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+7.7%</td><td style="text-align:right;">18.8%</td><td><div style="background:linear-gradient(90deg,#00ff0044 61.99781998249183%,transparent 61.99781998249183%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">5</td><td><b>3376</b> 新日興</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+6.9%</td><td style="text-align:right;">31.0%</td><td><div style="background:linear-gradient(90deg,#00ff0044 55.06410413911922%,transparent 55.06410413911922%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">6</td><td><b>2399</b> 映泰</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+6.5%</td><td style="text-align:right;">9.1%</td><td><div style="background:linear-gradient(90deg,#00ff0044 52.06117911285796%,transparent 52.06117911285796%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">7</td><td><b>8028</b> 昇陽半導體</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+6.0%</td><td style="text-align:right;">27.9%</td><td><div style="background:linear-gradient(90deg,#00ff0044 48.28242497535467%,transparent 48.28242497535467%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">8</td><td><b>4739</b> 康普</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.6%</td><td style="text-align:right;">10.8%</td><td><div style="background:linear-gradient(90deg,#00ff0044 45.091075633022776%,transparent 45.091075633022776%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">9</td><td><b>4571</b> 鈞興-KY</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.5%</td><td style="text-align:right;">66.6%</td><td><div style="background:linear-gradient(90deg,#00ff0044 43.99999999999994%,transparent 43.99999999999994%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">10</td><td><b>6271</b> 同欣電</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.4%</td><td style="text-align:right;">34.3%</td><td><div style="background:linear-gradient(90deg,#00ff0044 42.804602429036635%,transparent 42.804602429036635%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">11</td><td><b>3090</b> 日電貿</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.3%</td><td style="text-align:right;">15.7%</td><td><div style="background:linear-gradient(90deg,#00ff0044 42.33714149895077%,transparent 42.33714149895077%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">12</td><td><b>2027</b> 大成鋼</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.1%</td><td style="text-align:right;">22.9%</td><td><div style="background:linear-gradient(90deg,#00ff0044 41.03669856408811%,transparent 41.03669856408811%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">13</td><td><b>3189</b> 景碩</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.0%</td><td style="text-align:right;">30.9%</td><td><div style="background:linear-gradient(90deg,#00ff0044 39.759792415833346%,transparent 39.759792415833346%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">14</td><td><b>2344</b> 華邦電</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+5.0%</td><td style="text-align:right;">31.7%</td><td><div style="background:linear-gradient(90deg,#00ff0044 39.66695637318165%,transparent 39.66695637318165%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">15</td><td><b>8016</b> 矽創</td><td style="text-align:right;color:#00ff00;font-weight:bold;">+4.9%</td><td style="text-align:right;">36.6%</td><td><div style="background:linear-gradient(90deg,#00ff0044 39.41224944254418%,transparent 39.41224944254418%);height:18px;border-radius:3px;"></div></td></tr>
 </tbody>
             </table>
         </div>
@@ -598,21 +696,21 @@
                     <th style="text-align:right;">持股</th>
                     <th style="width:80px;">幅度</th>
                 </tr></thead>
-                <tbody><tr><td style="text-align:center;color:#888;">1</td><td><b>2474</b> 可成</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-9.9%</td><td style="text-align:right;">7.4%</td><td><div style="background:linear-gradient(90deg,#ff444444 79.54335968194098%,transparent 79.54335968194098%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">2</td><td><b>8150</b> 南茂</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-9.2%</td><td style="text-align:right;">43.2%</td><td><div style="background:linear-gradient(90deg,#ff444444 73.97942445261901%,transparent 73.97942445261901%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">3</td><td><b>9904</b> 寶成</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-8.0%</td><td style="text-align:right;">30.3%</td><td><div style="background:linear-gradient(90deg,#ff444444 64.28129461828232%,transparent 64.28129461828232%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">4</td><td><b>4540</b> 全球傳動</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-6.9%</td><td style="text-align:right;">4.5%</td><td><div style="background:linear-gradient(90deg,#ff444444 54.879999999999995%,transparent 54.879999999999995%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">5</td><td><b>6278</b> 台表科</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-6.0%</td><td style="text-align:right;">12.6%</td><td><div style="background:linear-gradient(90deg,#ff444444 47.93169782512422%,transparent 47.93169782512422%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">6</td><td><b>2548</b> 華固</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-6.0%</td><td style="text-align:right;">16.0%</td><td><div style="background:linear-gradient(90deg,#ff444444 47.67109411783946%,transparent 47.67109411783946%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">7</td><td><b>8271</b> 宇瞻</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.9%</td><td style="text-align:right;">12.1%</td><td><div style="background:linear-gradient(90deg,#ff444444 47.59715200115396%,transparent 47.59715200115396%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">8</td><td><b>4915</b> 致伸</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.4%</td><td style="text-align:right;">31.8%</td><td><div style="background:linear-gradient(90deg,#ff444444 43.16563202971565%,transparent 43.16563202971565%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">9</td><td><b>2402</b> 毅嘉</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.2%</td><td style="text-align:right;">5.3%</td><td><div style="background:linear-gradient(90deg,#ff444444 41.922166953478666%,transparent 41.922166953478666%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">10</td><td><b>4989</b> 榮科</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.2%</td><td style="text-align:right;">2.8%</td><td><div style="background:linear-gradient(90deg,#ff444444 41.440000000000005%,transparent 41.440000000000005%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">11</td><td><b>2486</b> 一詮</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.0%</td><td style="text-align:right;">14.4%</td><td><div style="background:linear-gradient(90deg,#ff444444 39.66568705514322%,transparent 39.66568705514322%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">12</td><td><b>3532</b> 台勝科</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.8%</td><td style="text-align:right;">46.0%</td><td><div style="background:linear-gradient(90deg,#ff444444 38.26293166683985%,transparent 38.26293166683985%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">13</td><td><b>1727</b> 中華化</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.7%</td><td style="text-align:right;">2.7%</td><td><div style="background:linear-gradient(90deg,#ff444444 37.76%,transparent 37.76%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">14</td><td><b>2449</b> 京元電子</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.7%</td><td style="text-align:right;">29.5%</td><td><div style="background:linear-gradient(90deg,#ff444444 37.40953507262773%,transparent 37.40953507262773%);height:18px;border-radius:3px;"></div></td></tr>
-<tr><td style="text-align:center;color:#888;">15</td><td><b>6672</b> 騰輝電子-KY</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.7%</td><td style="text-align:right;">17.2%</td><td><div style="background:linear-gradient(90deg,#ff444444 37.300791288608934%,transparent 37.300791288608934%);height:18px;border-radius:3px;"></div></td></tr>
+                <tbody><tr><td style="text-align:center;color:#888;">1</td><td><b>2474</b> 可成</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-9.1%</td><td style="text-align:right;">8.1%</td><td><div style="background:linear-gradient(90deg,#ff444444 73.14648291722406%,transparent 73.14648291722406%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">2</td><td><b>9904</b> 寶成</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-8.1%</td><td style="text-align:right;">30.0%</td><td><div style="background:linear-gradient(90deg,#ff444444 64.98835819325922%,transparent 64.98835819325922%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">3</td><td><b>8271</b> 宇瞻</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-7.4%</td><td style="text-align:right;">10.6%</td><td><div style="background:linear-gradient(90deg,#ff444444 59.037152001153956%,transparent 59.037152001153956%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">4</td><td><b>8150</b> 南茂</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-7.3%</td><td style="text-align:right;">43.4%</td><td><div style="background:linear-gradient(90deg,#ff444444 58.71305069091511%,transparent 58.71305069091511%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">5</td><td><b>2402</b> 毅嘉</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.9%</td><td style="text-align:right;">4.3%</td><td><div style="background:linear-gradient(90deg,#ff444444 47.122166953478676%,transparent 47.122166953478676%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">6</td><td><b>6278</b> 台表科</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.9%</td><td style="text-align:right;">12.7%</td><td><div style="background:linear-gradient(90deg,#ff444444 46.992062178681294%,transparent 46.992062178681294%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">7</td><td><b>8033</b> 雷虎</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.8%</td><td style="text-align:right;">3.6%</td><td><div style="background:linear-gradient(90deg,#ff444444 46.24000000000001%,transparent 46.24000000000001%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">8</td><td><b>8112</b> 至上</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.7%</td><td style="text-align:right;">18.0%</td><td><div style="background:linear-gradient(90deg,#ff444444 45.85978372329046%,transparent 45.85978372329046%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">9</td><td><b>2548</b> 華固</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.5%</td><td style="text-align:right;">16.6%</td><td><div style="background:linear-gradient(90deg,#ff444444 43.77188597862951%,transparent 43.77188597862951%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">10</td><td><b>4540</b> 全球傳動</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.4%</td><td style="text-align:right;">3.6%</td><td><div style="background:linear-gradient(90deg,#ff444444 42.959999999999994%,transparent 42.959999999999994%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">11</td><td><b>3532</b> 台勝科</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.2%</td><td style="text-align:right;">45.9%</td><td><div style="background:linear-gradient(90deg,#ff444444 41.64507174583463%,transparent 41.64507174583463%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">12</td><td><b>2486</b> 一詮</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-5.0%</td><td style="text-align:right;">14.2%</td><td><div style="background:linear-gradient(90deg,#ff444444 40.38568705514322%,transparent 40.38568705514322%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">13</td><td><b>4967</b> 十銓</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.9%</td><td style="text-align:right;">9.9%</td><td><div style="background:linear-gradient(90deg,#ff444444 39.56610300674805%,transparent 39.56610300674805%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">14</td><td><b>2449</b> 京元電子</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.9%</td><td style="text-align:right;">28.8%</td><td><div style="background:linear-gradient(90deg,#ff444444 39.200948036702925%,transparent 39.200948036702925%);height:18px;border-radius:3px;"></div></td></tr>
+<tr><td style="text-align:center;color:#888;">15</td><td><b>4977</b> 眾達-KY</td><td style="text-align:right;color:#ff4444;font-weight:bold;">-4.6%</td><td style="text-align:right;">15.2%</td><td><div style="background:linear-gradient(90deg,#ff444444 37.072329641356944%,transparent 37.072329641356944%);height:18px;border-radius:3px;"></div></td></tr>
 </tbody>
             </table>
         </div>
@@ -624,7 +722,7 @@
     <div class="stats">
         <div class="stat-card benchmark">
             <div class="label">0050 年化報酬</div>
-            <div class="value">+140.0%</div>
+            <div class="value">+130.5%</div>
         </div>
         <div class="stat-card benchmark">
             <div class="label">0050 最大回撤</div>
@@ -632,18 +730,18 @@
         </div>
         <div class="stat-card benchmark">
             <div class="label">0050 Sharpe</div>
-            <div class="value">3.88</div>
+            <div class="value">3.66</div>
         </div>
-        <div class="stat-card" style="border-left-color:#00ff00">
+        <div class="stat-card" style="border-left-color:#ff4444">
             <div class="label">超額年化報酬 (α)</div>
-            <div class="value" style="color:#00ff00">+6.9%</div>
+            <div class="value" style="color:#ff4444">-53.4%</div>
         </div>
     </div>
 
     <div class="stats">
         <div class="stat-card benchmark">
             <div class="label">00981A 年化報酬</div>
-            <div class="value">+218.4%</div>
+            <div class="value">+208.8%</div>
         </div>
         <div class="stat-card benchmark">
             <div class="label">00981A 最大回撤</div>
@@ -651,11 +749,11 @@
         </div>
         <div class="stat-card benchmark">
             <div class="label">00981A Sharpe</div>
-            <div class="value">3.84</div>
+            <div class="value">3.71</div>
         </div>
         <div class="stat-card" style="border-left-color:#ff4444">
             <div class="label">超額 vs 00981A (共存期)</div>
-            <div class="value" style="color:#ff4444">-41.4%</div>
+            <div class="value" style="color:#ff4444">-84.1%</div>
         </div>
     </div>
     <img src="backtest_chart.png" alt="AI Quantitative Backtest Equity Curve with Benchmark">
@@ -670,19 +768,19 @@
         </div>
         <div class="stat-card benchmark">
             <div class="label">0050 近 5 日</div>
-            <div class="value" style="color:#ff4444">-1.3%</div>
+            <div class="value" style="color:#ff4444">-4.5%</div>
         </div>
         <div class="stat-card benchmark">
             <div class="label">0050 近 20 日</div>
-            <div class="value" style="color:#00ff00">+7.5%</div>
+            <div class="value" style="color:#00ff00">+4.2%</div>
         </div>
         <div class="stat-card benchmark">
             <div class="label">0050 近 60 日</div>
-            <div class="value" style="color:#00ff00">+33.2%</div>
+            <div class="value" style="color:#00ff00">+31.8%</div>
         </div>
         <div class="stat-card risk">
             <div class="label">市場波動率 (20D)</div>
-            <div class="value">31.6%</div>
+            <div class="value">33.9%</div>
         </div>
     </div>
 
@@ -692,25 +790,25 @@
     <div class="stats">
         <div class="stat-card risk">
             <div class="label">目前回撤</div>
-            <div class="value" style="color:#ffab00">-5.0%</div>
+            <div class="value" style="color:#ffab00">-6.6%</div>
         </div>
         <div class="stat-card">
             <div class="label">權益最高點</div>
-            <div class="value">408,946</div>
+            <div class="value">324,431</div>
         </div>
         <div class="stat-card">
             <div class="label">歷史回撤次數</div>
-            <div class="value">11</div>
+            <div class="value">10</div>
         </div>
     </div>
     <table>
         <thead><tr><th>#</th><th>開始日</th><th>恢復日</th><th>最大深度</th><th>持續天數</th></tr></thead>
         <tbody>
-<tr><td>#1</td><td>2026-03-02</td><td>2026-04-14</td><td style="color:#ff4444; font-weight:bold">-16.0%</td><td>43 天</td></tr>
-<tr><td>#2</td><td>2026-05-13</td><td>2026-05-25</td><td style="color:#ff4444; font-weight:bold">-6.7%</td><td>12 天</td></tr>
-<tr><td>#3</td><td>2026-01-30</td><td>2026-02-11</td><td style="color:#ff4444; font-weight:bold">-5.7%</td><td>12 天</td></tr>
-<tr><td>#4</td><td>2025-12-15</td><td>2025-12-24</td><td style="color:#ff4444; font-weight:bold">-5.3%</td><td>9 天</td></tr>
-<tr><td>#5</td><td>2026-06-04</td><td>2026-06-05</td><td style="color:#ff4444; font-weight:bold">-5.0%</td><td>1 天</td></tr>
+<tr><td>#1</td><td>2026-03-02</td><td>2026-05-04</td><td style="color:#ff4444; font-weight:bold">-16.9%</td><td>63 天</td></tr>
+<tr><td>#2</td><td>2026-05-13</td><td>2026-05-22</td><td style="color:#ff4444; font-weight:bold">-8.5%</td><td>9 天</td></tr>
+<tr><td>#3</td><td>2026-01-29</td><td>2026-02-11</td><td style="color:#ff4444; font-weight:bold">-7.2%</td><td>13 天</td></tr>
+<tr><td>#4</td><td>2026-06-04</td><td>2026-06-08</td><td style="color:#ff4444; font-weight:bold">-6.6%</td><td>4 天</td></tr>
+<tr><td>#5</td><td>2025-12-15</td><td>2025-12-22</td><td style="color:#ff4444; font-weight:bold">-5.8%</td><td>7 天</td></tr>
 
         </tbody>
     </table>
@@ -721,19 +819,19 @@
     <div class="stats">
         <div class="stat-card" style="border-left-color:#00ff00">
             <div class="label">近 60 日 Sharpe</div>
-            <div class="value" style="color:#00ff00">4.64</div>
+            <div class="value" style="color:#00ff00">2.75</div>
         </div>
         <div class="stat-card">
             <div class="label">歷史平均 Sharpe</div>
-            <div class="value">3.80</div>
+            <div class="value">2.23</div>
         </div>
         <div class="stat-card risk">
             <div class="label">歷史最低 Sharpe</div>
-            <div class="value">0.31</div>
+            <div class="value">-2.19</div>
         </div>
         <div class="stat-card">
             <div class="label">歷史最高 Sharpe</div>
-            <div class="value">6.88</div>
+            <div class="value">4.82</div>
         </div>
     </div>
 
@@ -743,15 +841,15 @@
     <div class="stats">
         <div class="stat-card">
             <div class="label">最長連勝</div>
-            <div class="value" style="color:#00ff00">16 筆</div>
+            <div class="value" style="color:#00ff00">11 筆</div>
         </div>
         <div class="stat-card risk">
             <div class="label">最長連敗</div>
-            <div class="value" style="color:#ff4444">8 筆</div>
+            <div class="value" style="color:#ff4444">7 筆</div>
         </div>
         <div class="stat-card">
             <div class="label">近 5 筆走勢</div>
-            <div class="value" style="font-size:1.2rem">🟢 🟢 🟢 🟢 🔴 </div>
+            <div class="value" style="font-size:1.2rem">🟢 🟢 🟢 🔴 🔴 </div>
         </div>
     </div>
 
@@ -759,9 +857,9 @@
     <table>
         <thead><tr><th>出場原因</th><th>次數</th><th>平均報酬</th></tr></thead>
         <tbody>
-<tr><td>🟢 停利</td><td>57 筆</td><td style="color:#00ff00">+19.47%</td></tr>
-<tr><td>⚪ 時間到期</td><td>22 筆</td><td style="color:#00ff00">+0.55%</td></tr>
-<tr><td>🔴 停損</td><td>12 筆</td><td style="color:#ff4444">-13.97%</td></tr>
+<tr><td>🟢 停利</td><td>45 筆</td><td style="color:#00ff00">+18.86%</td></tr>
+<tr><td>⚪ 時間到期</td><td>22 筆</td><td style="color:#00ff00">+2.23%</td></tr>
+<tr><td>🔴 停損</td><td>18 筆</td><td style="color:#ff4444">-14.93%</td></tr>
 
         </tbody>
     </table>
@@ -771,14 +869,14 @@
 
     <table>
         <thead><tr><th>報酬區間</th><th>筆數</th><th>佔比</th><th>分布</th></tr></thead>
-        <tbody><tr><td>< -15%</td><td>6</td><td>6.6%</td><td><div style="background:#ff4444; width:19.78021978021978%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>-15~-10%</td><td>9</td><td>9.9%</td><td><div style="background:#ff4444; width:29.67032967032967%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>-10~-5%</td><td>6</td><td>6.6%</td><td><div style="background:#ff4444; width:19.78021978021978%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>-5~0%</td><td>1</td><td>1.1%</td><td><div style="background:#ff4444; width:3.296703296703297%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>0~5%</td><td>2</td><td>2.2%</td><td><div style="background:#00ff00; width:6.593406593406594%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>5~10%</td><td>7</td><td>7.7%</td><td><div style="background:#00ff00; width:23.076923076923077%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>10~20%</td><td>35</td><td>38.5%</td><td><div style="background:#00ff00; width:100%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
-<tr><td>> 20%</td><td>25</td><td>27.5%</td><td><div style="background:#00ff00; width:82.41758241758242%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+        <tbody><tr><td>< -15%</td><td>7</td><td>8.2%</td><td><div style="background:#ff4444; width:24.705882352941174%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>-15~-10%</td><td>11</td><td>12.9%</td><td><div style="background:#ff4444; width:38.82352941176471%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>-10~-5%</td><td>6</td><td>7.1%</td><td><div style="background:#ff4444; width:21.176470588235293%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>-5~0%</td><td>3</td><td>3.5%</td><td><div style="background:#ff4444; width:10.588235294117647%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>0~5%</td><td>4</td><td>4.7%</td><td><div style="background:#00ff00; width:14.117647058823529%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>5~10%</td><td>5</td><td>5.9%</td><td><div style="background:#00ff00; width:17.64705882352941%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>10~20%</td><td>28</td><td>32.9%</td><td><div style="background:#00ff00; width:98.8235294117647%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
+<tr><td>> 20%</td><td>21</td><td>24.7%</td><td><div style="background:#00ff00; width:74.11764705882354%; height:14px; border-radius:3px; opacity:0.6"></div></td></tr>
 </tbody>
     </table>
 
@@ -788,26 +886,26 @@
     <h3 style="color:#00e5ff; margin-top:16px">🏆 Top 10 貢獻股</h3>
     <table>
         <thead><tr><th>股票</th><th>交易數</th><th>勝率</th><th>平均報酬</th><th>總貢獻</th></tr></thead>
-        <tbody><tr><td><b>3037</b></td><td>5</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+20.7%</td><td style="color:#00ff00; font-weight:bold">+103.3%</td></tr>
-<tr><td><b>3711</b></td><td>5</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+16.2%</td><td style="color:#00ff00; font-weight:bold">+80.8%</td></tr>
-<tr><td><b>2368</b></td><td>4</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+18.8%</td><td style="color:#00ff00; font-weight:bold">+75.2%</td></tr>
-<tr><td><b>5274</b></td><td>4</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+17.8%</td><td style="color:#00ff00; font-weight:bold">+71.3%</td></tr>
-<tr><td><b>2360</b></td><td>3</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+22.6%</td><td style="color:#00ff00; font-weight:bold">+67.7%</td></tr>
-<tr><td><b>2383</b></td><td>3</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+20.5%</td><td style="color:#00ff00; font-weight:bold">+61.5%</td></tr>
-<tr><td><b>6285</b></td><td>2</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+27.4%</td><td style="color:#00ff00; font-weight:bold">+54.8%</td></tr>
-<tr><td><b>3533</b></td><td>2</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+25.0%</td><td style="color:#00ff00; font-weight:bold">+50.1%</td></tr>
-<tr><td><b>2303</b></td><td>3</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+15.4%</td><td style="color:#00ff00; font-weight:bold">+46.1%</td></tr>
-<tr><td><b>2308</b></td><td>2</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+20.1%</td><td style="color:#00ff00; font-weight:bold">+40.1%</td></tr>
+        <tbody><tr><td><b>5274O</b></td><td>6</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+17.8%</td><td style="color:#00ff00; font-weight:bold">+107.1%</td></tr>
+<tr><td><b>2360</b></td><td>6</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+17.3%</td><td style="color:#00ff00; font-weight:bold">+103.6%</td></tr>
+<tr><td><b>3037</b></td><td>4</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+24.7%</td><td style="color:#00ff00; font-weight:bold">+98.9%</td></tr>
+<tr><td><b>3711</b></td><td>7</td><td style="color:#00ff00">86%</td><td style="color:#00ff00">+13.1%</td><td style="color:#00ff00; font-weight:bold">+91.9%</td></tr>
+<tr><td><b>1303</b></td><td>6</td><td style="color:#00ff00">67%</td><td style="color:#00ff00">+7.7%</td><td style="color:#00ff00; font-weight:bold">+46.2%</td></tr>
+<tr><td><b>2303</b></td><td>5</td><td style="color:#00ff00">80%</td><td style="color:#00ff00">+9.0%</td><td style="color:#00ff00; font-weight:bold">+45.1%</td></tr>
+<tr><td><b>6285</b></td><td>3</td><td style="color:#00ff00">67%</td><td style="color:#00ff00">+12.4%</td><td style="color:#00ff00; font-weight:bold">+37.1%</td></tr>
+<tr><td><b>6239</b></td><td>2</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+16.3%</td><td style="color:#00ff00; font-weight:bold">+32.7%</td></tr>
+<tr><td><b>3017</b></td><td>3</td><td style="color:#00ff00">67%</td><td style="color:#00ff00">+9.6%</td><td style="color:#00ff00; font-weight:bold">+28.8%</td></tr>
+<tr><td><b>2308</b></td><td>1</td><td style="color:#00ff00">100%</td><td style="color:#00ff00">+22.2%</td><td style="color:#00ff00; font-weight:bold">+22.2%</td></tr>
 </tbody>
     </table>
     <h3 style="color:#ff4444; margin-top:16px">📉 Bottom 5 虧損股</h3>
     <table>
         <thead><tr><th>股票</th><th>交易數</th><th>勝率</th><th>平均報酬</th><th>總貢獻</th></tr></thead>
         <tbody><tr style="opacity:0.7"><td><b>2404</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-13.5%</td><td style="color:#ff4444; font-weight:bold">-13.5%</td></tr>
-<tr style="opacity:0.7"><td><b>1301</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-13.6%</td><td style="color:#ff4444; font-weight:bold">-13.6%</td></tr>
 <tr style="opacity:0.7"><td><b>1326</b></td><td>2</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-7.8%</td><td style="color:#ff4444; font-weight:bold">-15.7%</td></tr>
-<tr style="opacity:0.7"><td><b>6239</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-17.1%</td><td style="color:#ff4444; font-weight:bold">-17.1%</td></tr>
-<tr style="opacity:0.7"><td><b>2605</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-17.2%</td><td style="color:#ff4444; font-weight:bold">-17.2%</td></tr>
+<tr style="opacity:0.7"><td><b>1605</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-16.1%</td><td style="color:#ff4444; font-weight:bold">-16.1%</td></tr>
+<tr style="opacity:0.7"><td><b>2605</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-23.3%</td><td style="color:#ff4444; font-weight:bold">-23.3%</td></tr>
+<tr style="opacity:0.7"><td><b>2344</b></td><td>1</td><td style="color:#ff4444">0%</td><td style="color:#ff4444">-25.1%</td><td style="color:#ff4444; font-weight:bold">-25.1%</td></tr>
 </tbody>
     </table>
 
@@ -821,26 +919,26 @@
             </tr>
         </thead>
         <tbody>
-<tr><td><b>3231</b><br><span style="font-size:0.75rem;color:#aaa;">緯創</span></td><td>2026-06-03</td><td>2026-06-05</td><td>193.2</td><td>171.8</td><td>🔴 停損</td><td>2天</td><td style="color:#ff4444; font-weight:bold;">-11.7%</td></tr>
-<tr><td><b>3017</b><br><span style="font-size:0.75rem;color:#aaa;">奇鋐</span></td><td>2026-05-07</td><td>2026-06-04</td><td>2447.4</td><td>2710.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+10.0%</td></tr>
-<tr><td><b>2885</b><br><span style="font-size:0.75rem;color:#aaa;">元大金</span></td><td>2026-05-14</td><td>2026-06-03</td><td>56.4</td><td>62.3</td><td>🟢 停利</td><td>14天</td><td style="color:#00ff00; font-weight:bold;">+9.8%</td></tr>
-<tr><td><b>2379</b><br><span style="font-size:0.75rem;color:#aaa;">瑞昱</span></td><td>2026-05-12</td><td>2026-06-03</td><td>581.6</td><td>685.0</td><td>🟢 停利</td><td>16天</td><td style="color:#00ff00; font-weight:bold;">+17.0%</td></tr>
-<tr><td><b>3149</b><br><span style="font-size:0.75rem;color:#aaa;">正達</span></td><td>2026-05-27</td><td>2026-06-02</td><td>68.5</td><td>86.1</td><td>🟢 停利</td><td>4天</td><td style="color:#00ff00; font-weight:bold;">+24.9%</td></tr>
-<tr><td><b>3044</b><br><span style="font-size:0.75rem;color:#aaa;">健鼎</span></td><td>2026-05-05</td><td>2026-06-02</td><td>465.5</td><td>508.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+8.4%</td></tr>
-<tr><td><b>2376</b><br><span style="font-size:0.75rem;color:#aaa;">技嘉</span></td><td>2026-05-08</td><td>2026-05-29</td><td>316.3</td><td>362.3</td><td>🟢 停利</td><td>15天</td><td style="color:#00ff00; font-weight:bold;">+13.8%</td></tr>
-<tr><td><b>2345</b><br><span style="font-size:0.75rem;color:#aaa;">智邦</span></td><td>2026-04-28</td><td>2026-05-27</td><td>2252.2</td><td>2620.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+15.5%</td></tr>
-<tr><td><b>2360</b><br><span style="font-size:0.75rem;color:#aaa;">致茂</span></td><td>2026-04-27</td><td>2026-05-26</td><td>1982.0</td><td>2563.0</td><td>🟢 停利</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+28.4%</td></tr>
-<tr><td><b>6285</b><br><span style="font-size:0.75rem;color:#aaa;">啟碁</span></td><td>2026-05-07</td><td>2026-05-19</td><td>240.7</td><td>307.4</td><td>🟢 停利</td><td>8天</td><td style="color:#00ff00; font-weight:bold;">+26.8%</td></tr>
-<tr><td><b>1301</b><br><span style="font-size:0.75rem;color:#aaa;">台塑</span></td><td>2026-04-16</td><td>2026-05-14</td><td>53.0</td><td>46.2</td><td>🔴 停損</td><td>19天</td><td style="color:#ff4444; font-weight:bold;">-13.6%</td></tr>
-<tr><td><b>1326</b><br><span style="font-size:0.75rem;color:#aaa;">台化</span></td><td>2026-04-14</td><td>2026-05-13</td><td>50.0</td><td>46.1</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#ff4444; font-weight:bold;">-8.3%</td></tr>
-<tr><td><b>3036</b><br><span style="font-size:0.75rem;color:#aaa;">文曄</span></td><td>2026-04-13</td><td>2026-05-12</td><td>223.7</td><td>270.0</td><td>🟢 停利</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+19.9%</td></tr>
-<tr><td><b>1303</b><br><span style="font-size:0.75rem;color:#aaa;">南亞</span></td><td>2026-04-10</td><td>2026-05-11</td><td>87.0</td><td>91.5</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+4.5%</td></tr>
-<tr><td><b>2327</b><br><span style="font-size:0.75rem;color:#aaa;">國巨*</span></td><td>2026-04-23</td><td>2026-05-08</td><td>316.3</td><td>390.0</td><td>🟢 停利</td><td>10天</td><td style="color:#00ff00; font-weight:bold;">+22.4%</td></tr>
-<tr><td><b>2303</b><br><span style="font-size:0.75rem;color:#aaa;">聯電</span></td><td>2026-04-23</td><td>2026-05-07</td><td>79.6</td><td>97.4</td><td>🟢 停利</td><td>9天</td><td style="color:#00ff00; font-weight:bold;">+21.6%</td></tr>
-<tr><td><b>2395</b><br><span style="font-size:0.75rem;color:#aaa;">研華</span></td><td>2026-04-20</td><td>2026-05-07</td><td>375.4</td><td>445.0</td><td>🟢 停利</td><td>12天</td><td style="color:#00ff00; font-weight:bold;">+17.7%</td></tr>
-<tr><td><b>6415</b><br><span style="font-size:0.75rem;color:#aaa;">矽力*-KY</span></td><td>2026-04-21</td><td>2026-05-05</td><td>377.9</td><td>449.8</td><td>🟢 停利</td><td>9天</td><td style="color:#00ff00; font-weight:bold;">+18.2%</td></tr>
-<tr><td><b>2308</b><br><span style="font-size:0.75rem;color:#aaa;">台達電</span></td><td>2026-04-14</td><td>2026-04-28</td><td>1806.8</td><td>2144.8</td><td>🟢 停利</td><td>10天</td><td style="color:#00ff00; font-weight:bold;">+17.9%</td></tr>
-<tr><td><b>3037</b><br><span style="font-size:0.75rem;color:#aaa;">欣興</span></td><td>2026-04-20</td><td>2026-04-27</td><td>644.6</td><td>835.0</td><td>🟢 停利</td><td>5天</td><td style="color:#00ff00; font-weight:bold;">+28.6%</td></tr>
+<tr><td><b>2454</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-06-02</td><td>2026-06-08</td><td>4975.0</td><td>3935.0</td><td>🔴 停損</td><td>4天</td><td style="color:#ff4444; font-weight:bold;">-21.4%</td></tr>
+<tr><td><b>3533</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-11</td><td>2026-06-08</td><td>2682.7</td><td>2130.0</td><td>🔴 停損</td><td>20天</td><td style="color:#ff4444; font-weight:bold;">-21.1%</td></tr>
+<tr><td><b>2885</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-28</td><td>2026-06-05</td><td>59.6</td><td>66.2</td><td>🟢 停利</td><td>6天</td><td style="color:#00ff00; font-weight:bold;">+10.3%</td></tr>
+<tr><td><b>3017</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-07</td><td>2026-06-04</td><td>2447.4</td><td>2710.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+10.0%</td></tr>
+<tr><td><b>1303</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-13</td><td>2026-06-02</td><td>89.8</td><td>110.1</td><td>🟢 停利</td><td>14天</td><td style="color:#00ff00; font-weight:bold;">+21.8%</td></tr>
+<tr><td><b>2376</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-08</td><td>2026-05-29</td><td>316.3</td><td>362.3</td><td>🟢 停利</td><td>15天</td><td style="color:#00ff00; font-weight:bold;">+13.8%</td></tr>
+<tr><td><b>3037</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-12</td><td>2026-05-28</td><td>904.9</td><td>1125.0</td><td>🟢 停利</td><td>12天</td><td style="color:#00ff00; font-weight:bold;">+23.5%</td></tr>
+<tr><td><b>3711</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-05-12</td><td>2026-05-27</td><td>537.5</td><td>653.0</td><td>🟢 停利</td><td>11天</td><td style="color:#00ff00; font-weight:bold;">+20.7%</td></tr>
+<tr><td><b>3044</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-24</td><td>2026-05-25</td><td>474.0</td><td>494.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+3.5%</td></tr>
+<tr><td><b>2360</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-23</td><td>2026-05-22</td><td>2032.0</td><td>2270.0</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+10.9%</td></tr>
+<tr><td><b>6285</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-23</td><td>2026-05-19</td><td>241.2</td><td>308.9</td><td>🟢 停利</td><td>17天</td><td style="color:#00ff00; font-weight:bold;">+27.2%</td></tr>
+<tr><td><b>1301</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-15</td><td>2026-05-13</td><td>54.4</td><td>47.6</td><td>🔴 停損</td><td>19天</td><td style="color:#ff4444; font-weight:bold;">-13.1%</td></tr>
+<tr><td><b>1326</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-14</td><td>2026-05-13</td><td>50.0</td><td>46.1</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#ff4444; font-weight:bold;">-8.3%</td></tr>
+<tr><td><b>3711</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-23</td><td>2026-05-12</td><td>475.0</td><td>560.1</td><td>🟢 停利</td><td>12天</td><td style="color:#00ff00; font-weight:bold;">+17.1%</td></tr>
+<tr><td><b>3036</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-13</td><td>2026-05-12</td><td>217.5</td><td>262.5</td><td>🟢 停利</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+19.9%</td></tr>
+<tr><td><b>1303</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-10</td><td>2026-05-11</td><td>87.0</td><td>91.5</td><td>⚪ 時間到期</td><td>20天</td><td style="color:#00ff00; font-weight:bold;">+4.5%</td></tr>
+<tr><td><b>2327</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-16</td><td>2026-05-08</td><td>320.3</td><td>390.0</td><td>🟢 停利</td><td>15天</td><td style="color:#00ff00; font-weight:bold;">+20.9%</td></tr>
+<tr><td><b>2303</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-23</td><td>2026-05-07</td><td>79.6</td><td>97.4</td><td>🟢 停利</td><td>9天</td><td style="color:#00ff00; font-weight:bold;">+21.6%</td></tr>
+<tr><td><b>3037</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-08</td><td>2026-04-24</td><td>606.6</td><td>783.8</td><td>🟢 停利</td><td>12天</td><td style="color:#00ff00; font-weight:bold;">+28.3%</td></tr>
+<tr><td><b>6285</b><br><span style="font-size:0.75rem;color:#aaa;"></span></td><td>2026-04-17</td><td>2026-04-23</td><td>268.3</td><td>221.4</td><td>🔴 停損</td><td>4天</td><td style="color:#ff4444; font-weight:bold;">-18.0%</td></tr>
 
         </tbody>
     </table>
@@ -850,16 +948,15 @@
     <table style="max-width:400px">
         <thead><tr><th>月份</th><th>月報酬</th></tr></thead>
         <tbody>
-<tr style="background:rgba(0,255,0,0.00)"><td>2025-09</td><td style="color:#00ff00; font-weight:bold">+0.0%</td></tr>
 <tr style="background:rgba(0,255,0,0.00)"><td>2025-10</td><td style="color:#00ff00; font-weight:bold">+0.0%</td></tr>
 <tr style="background:rgba(0,255,0,0.00)"><td>2025-11</td><td style="color:#00ff00; font-weight:bold">+0.0%</td></tr>
-<tr style="background:rgba(0,255,0,0.29)"><td>2025-12</td><td style="color:#00ff00; font-weight:bold">+9.5%</td></tr>
-<tr style="background:rgba(0,255,0,0.30)"><td>2026-01</td><td style="color:#00ff00; font-weight:bold">+25.6%</td></tr>
-<tr style="background:rgba(0,255,0,0.30)"><td>2026-02</td><td style="color:#00ff00; font-weight:bold">+13.0%</td></tr>
-<tr style="background:rgba(255,68,68,0.30)"><td>2026-03</td><td style="color:#ff4444; font-weight:bold">-10.4%</td></tr>
-<tr style="background:rgba(0,255,0,0.30)"><td>2026-04</td><td style="color:#00ff00; font-weight:bold">+19.3%</td></tr>
-<tr style="background:rgba(0,255,0,0.30)"><td>2026-05</td><td style="color:#00ff00; font-weight:bold">+18.4%</td></tr>
-<tr style="background:rgba(255,68,68,0.04)"><td>2026-06</td><td style="color:#ff4444; font-weight:bold">-1.4%</td></tr>
+<tr style="background:rgba(0,255,0,0.12)"><td>2025-12</td><td style="color:#00ff00; font-weight:bold">+3.8%</td></tr>
+<tr style="background:rgba(0,255,0,0.30)"><td>2026-01</td><td style="color:#00ff00; font-weight:bold">+13.0%</td></tr>
+<tr style="background:rgba(0,255,0,0.30)"><td>2026-02</td><td style="color:#00ff00; font-weight:bold">+14.8%</td></tr>
+<tr style="background:rgba(255,68,68,0.30)"><td>2026-03</td><td style="color:#ff4444; font-weight:bold">-13.5%</td></tr>
+<tr style="background:rgba(0,255,0,0.30)"><td>2026-04</td><td style="color:#00ff00; font-weight:bold">+12.2%</td></tr>
+<tr style="background:rgba(0,255,0,0.30)"><td>2026-05</td><td style="color:#00ff00; font-weight:bold">+22.3%</td></tr>
+<tr style="background:rgba(255,68,68,0.16)"><td>2026-06</td><td style="color:#ff4444; font-weight:bold">-5.3%</td></tr>
 
         </tbody>
     </table>
